@@ -1,41 +1,18 @@
 package com.example.nazam.grandhika;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class FullscreenActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -105,46 +82,17 @@ public class FullscreenActivity extends AppCompatActivity {
             return false;
         }
     };
-    private CustomPageAdapter mCustomPagerAdapter;
-    private ViewPager mViewPager;
-    private String url = "http://195.110.58.237:8080/iptv2";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_fullscreen);
+        setContentView(R.layout.activity_setting);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
-        //call api get bitmap set into mBitmap
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url+"/GetAdvImage").build();
-        client.newCall(request).enqueue(new Callback() {
-
-               @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    if(response.isSuccessful()) {
-                        Log.d("Test Api", response.body().string());
-                        JSONObject jobj = new JSONObject();
-//                        jobj.getJSONArray(response.body().string());
-//                        JSONArray result = new JSONArray(response.body());
-//                        result.
-
-                    }
-                }
-        });
-
-
-        mCustomPagerAdapter = new CustomPageAdapter(this);
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mCustomPagerAdapter);
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
@@ -158,46 +106,6 @@ public class FullscreenActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-        ImageButton im = findViewById(R.id.Tv);
-        im.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent tvIntent = new Intent(FullscreenActivity.this, TvActivity.class);
-                startActivity(tvIntent);
-            }
-        });
-
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-        ImageButton im1 = findViewById(R.id.Dining);
-        im1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent diningIntent = new Intent(FullscreenActivity.this, DiningActivity.class);
-                startActivity(diningIntent);
-            }
-        });
-
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
-        ImageButton im2 = findViewById(R.id.Scenery);
-        im2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sceneryIntent = new Intent(FullscreenActivity.this, SceneryActivity.class);
-                startActivity(sceneryIntent);
-            }
-        });
-
-        findViewById(R.id.Setting).setOnTouchListener(mDelayHideTouchListener);
-        ImageButton im3 = findViewById(R.id.Setting);
-        im3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent settingIntent = new Intent(FullscreenActivity.this, SceneryActivity.class);
-                startActivity(settingIntent);
-            }
-        });
-
-
     }
 
     @Override
@@ -251,43 +159,5 @@ public class FullscreenActivity extends AppCompatActivity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
-    }
-
-    Bitmap[] mBitmap = new Bitmap[3];
-
-    class CustomPageAdapter extends PagerAdapter{
-        Context mContext;
-        LayoutInflater mLayoutInflater;
-
-        public CustomPageAdapter(Context context){
-            mContext = context;
-            mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-
-        @Override
-        public int getCount() {
-            return 3;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == ((LinearLayout) object);
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
-
-            ImageView imageView = (ImageView) itemView.findViewById(R.id.imageSlideView);
-            imageView.setImageBitmap(mBitmap[position]);
-
-            container.addView(itemView);
-            return itemView;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((LinearLayout)object);
-        }
     }
 }

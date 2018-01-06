@@ -12,4 +12,6 @@
     <string name="title_activity_dining">DiningActivity</string>
 
     <string name="title_activity_scenery">SceneryActivity</string>
+
+    <string name="title_activity_setting">SettingActivity</string>
 </resources>

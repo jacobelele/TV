@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -18,12 +19,19 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -41,12 +49,14 @@ public class FullscreenActivity extends AppCompatActivity {
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
     private static final boolean AUTO_HIDE = true;
+    private static int currentPage = 0;
+    ImageButton im;
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
      * user interaction before hiding the system UI.
      */
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
+    private static final int AUTO_HIDE_DELAY_MILLIS = 300;
 
     /**
      * Some older devices needs a small delay between UI widget updates
@@ -119,45 +129,70 @@ public class FullscreenActivity extends AppCompatActivity {
         mContentView = findViewById(R.id.fullscreen_content);
 
         //call api get bitmap set into mBitmap
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url+"/GetAdvImage").build();
-        client.newCall(request).enqueue(new Callback() {
-
-               @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    if(response.isSuccessful()) {
-                        Log.d("Test Api", response.body().string());
-                        JSONObject jobj = new JSONObject();
-//                        jobj.getJSONArray(response.body().string());
-//                        JSONArray result = new JSONArray(response.body());
-//                        result.
-
-                    }
-                }
-        });
+//        OkHttpClient client = new OkHttpClient();
+//        Request request = new Request.Builder().url(url+"/GetAdvImage").build();
+//        client.newCall(request).enqueue(new Callback() {
+//
+//               @Override
+//                public void onFailure(Call call, IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                @Override
+//                public void onResponse(Call call, Response response) throws IOException {
+//                    if(response.isSuccessful()) {
+//                        String[] resString = response.body().string().replace("[","")
+//                                .replace("]","")
+//                                .split(",");
+//                        for(int i=0;i<resString.length;i++){
+//                            String val = url+resString[i].substring(3,resString[i].length()-1);
+//                            mBitmap[i]=getBitmapFromURL(val);
+//                        }
+////                        Log.d("Test Api", response.body().string());
+////                        Log.d("Test Api", new JSONTokener(response.body().string()).toString());
+////                        JSONObject jobj = new JSONObject();
+////                        jobj.getJSONArray(response.body().string());
+////                        JSONArray result = new JSONArray(response.body());
+////                        result.
+//
+//                    }
+//                }
+//        });
 
 
         mCustomPagerAdapter = new CustomPageAdapter(this);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
+//        final Handler handler = new Handler();
+//        final Runnable Update = new Runnable() {
+//            public void run() {
+//                if (currentPage == 3) {
+//                    currentPage = 0;
+//                }
+//                mViewPager.setCurrentItem(currentPage++, true);
+//            }
+//        };
+//        Timer swipeTimer = new Timer();
+//        swipeTimer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                handler.post(Update);
+//            }
+//        }, 2500, 2500);
 
-        // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
+//        // Set up the user interaction to manually show or hide the system UI.
+        /*mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toggle();
             }
-        });
+        });*/
+//
+//        // Upon interacting with UI controls, delay any scheduled hide()
+//        // operations to prevent the jarring behavior of controls going away
+//        // while interacting with the UI.
+//        findViewById(R.id.Tv).setOnTouchListener(mDelayHideTouchListener);
 
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
         ImageButton im = findViewById(R.id.Tv);
         im.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,7 +202,7 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+//        findViewById(R.id.Dining).setOnTouchListener(mDelayHideTouchListener);
         ImageButton im1 = findViewById(R.id.Dining);
         im1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,7 +212,7 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+//        findViewById(R.id.Scenery).setOnTouchListener(mDelayHideTouchListener);
         ImageButton im2 = findViewById(R.id.Scenery);
         im2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,12 +222,12 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.Setting).setOnTouchListener(mDelayHideTouchListener);
+//        findViewById(R.id.Setting).setOnTouchListener(mDelayHideTouchListener);
         ImageButton im3 = findViewById(R.id.Setting);
         im3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent settingIntent = new Intent(FullscreenActivity.this, SceneryActivity.class);
+                Intent settingIntent = new Intent(FullscreenActivity.this, SettingActivity.class);
                 startActivity(settingIntent);
             }
         });
@@ -228,8 +263,8 @@ public class FullscreenActivity extends AppCompatActivity {
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
-        mHideHandler.removeCallbacks(mShowPart2Runnable);
-        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
+//        mHideHandler.removeCallbacks(mShowPart2Runnable);
+//        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
     }
 
     @SuppressLint("InlinedApi")
@@ -288,6 +323,21 @@ public class FullscreenActivity extends AppCompatActivity {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((LinearLayout)object);
+        }
+    }
+
+    public static Bitmap getBitmapFromURL(String src){
+        try{
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap bitmap = BitmapFactory.decodeStream(input);
+            return bitmap;
+        }catch (IOException e){
+            e.printStackTrace();
+            return null;
         }
     }
 }

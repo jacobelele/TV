@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,14 +31,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import model.AdvImage;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -82,7 +85,7 @@ public class FullscreenActivity extends AppCompatActivity {
                     | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
     };
-    private View mControlsView;
+//    private View mControlsView;
     private final Runnable mShowPart2Runnable = new Runnable() {
         @Override
         public void run() {
@@ -91,7 +94,7 @@ public class FullscreenActivity extends AppCompatActivity {
             if (actionBar != null) {
                 actionBar.show();
             }
-            mControlsView.setVisibility(View.VISIBLE);
+//            mControlsView.setVisibility(View.VISIBLE);
         }
     };
     private boolean mVisible;
@@ -125,60 +128,70 @@ public class FullscreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fullscreen);
 
         mVisible = true;
-        mControlsView = findViewById(R.id.fullscreen_content_controls);
+//        mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
         //call api get bitmap set into mBitmap
-//        OkHttpClient client = new OkHttpClient();
-//        Request request = new Request.Builder().url(url+"/GetAdvImage").build();
-//        client.newCall(request).enqueue(new Callback() {
-//
-//               @Override
-//                public void onFailure(Call call, IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                @Override
-//                public void onResponse(Call call, Response response) throws IOException {
-//                    if(response.isSuccessful()) {
-//                        String[] resString = response.body().string().replace("[","")
-//                                .replace("]","")
-//                                .split(",");
-//                        for(int i=0;i<resString.length;i++){
-//                            String val = url+resString[i].substring(3,resString[i].length()-1);
-//                            mBitmap[i]=getBitmapFromURL(val);
-//                        }
-////                        Log.d("Test Api", response.body().string());
-////                        Log.d("Test Api", new JSONTokener(response.body().string()).toString());
-////                        JSONObject jobj = new JSONObject();
-////                        jobj.getJSONArray(response.body().string());
-////                        JSONArray result = new JSONArray(response.body());
-////                        result.
-//
-//                    }
-//                }
-//        });
+        /*api.Adapter.service().listAdvImage().enqueue(new Callback<List<AdvImage>>() {
+            @Override
+            public void onResponse(Call<List<AdvImage>> call, Response<List<AdvImage>> response) {
+                if(response.isSuccessful()){
+                    List<AdvImage> listAdvImage = response.body();
+                    if(mBitmap.size()>0)
+                        mBitmap.clear();
+                    for(int i=0;i<listAdvImage.size();i++){
+                        mBitmap.add(getBitmapFromURL(url+listAdvImage.get(0).getPathImage().substring(3)));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<AdvImage>> call, Throwable t) {
+                Log.d("Api Test",t.getMessage());
+            }
+        });*/
+
+        api.Adapter.service().listAdvImage().enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if(response.isSuccessful()){
+                    List<String> listAdvImage = response.body();
+                    Log.v("Berhasil",listAdvImage.get(0));
+                    if(mBitmap.size()>0)
+                        mBitmap.clear();
+                    for(int i=0;i<listAdvImage.size();i++){
+                        mBitmap.add(getBitmapFromURL(url+listAdvImage.get(0).substring(3)));
+                    }
+                    mCustomPagerAdapter = new CustomPageAdapter(getApplicationContext());
+                    mViewPager = (ViewPager) findViewById(R.id.pager);
+                    mViewPager.setAdapter(mCustomPagerAdapter);
+                    final Handler handler = new Handler();
+                    final Runnable Update = new Runnable() {
+                        public void run() {
+                            if (currentPage == 7) {
+                                currentPage = 0;
+                            }
+                            mViewPager.setCurrentItem(currentPage++, true);
+                        }
+                    };
+                    Timer swipeTimer = new Timer();
+                    swipeTimer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            handler.post(Update);
+                        }
+                    }, 2500, 2500);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                Log.d("Api Test",t.getMessage());
+            }
+        });
 
 
-        mCustomPagerAdapter = new CustomPageAdapter(this);
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mCustomPagerAdapter);
-//        final Handler handler = new Handler();
-//        final Runnable Update = new Runnable() {
-//            public void run() {
-//                if (currentPage == 3) {
-//                    currentPage = 0;
-//                }
-//                mViewPager.setCurrentItem(currentPage++, true);
-//            }
-//        };
-//        Timer swipeTimer = new Timer();
-//        swipeTimer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                handler.post(Update);
-//            }
-//        }, 2500, 2500);
+
 
 //        // Set up the user interaction to manually show or hide the system UI.
         /*mContentView.setOnClickListener(new View.OnClickListener() {
@@ -259,7 +272,7 @@ public class FullscreenActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-        mControlsView.setVisibility(View.GONE);
+//        mControlsView.setVisibility(View.GONE);
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
@@ -288,7 +301,7 @@ public class FullscreenActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
-    Bitmap[] mBitmap = new Bitmap[3];
+    private List<Bitmap> mBitmap = new ArrayList<Bitmap>();
 
     class CustomPageAdapter extends PagerAdapter{
         Context mContext;
@@ -301,7 +314,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 6;
         }
 
         @Override
@@ -314,7 +327,7 @@ public class FullscreenActivity extends AppCompatActivity {
             View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
 
             ImageView imageView = (ImageView) itemView.findViewById(R.id.imageSlideView);
-            imageView.setImageBitmap(mBitmap[position]);
+            imageView.setImageBitmap(mBitmap.get(position));
 
             container.addView(itemView);
             return itemView;

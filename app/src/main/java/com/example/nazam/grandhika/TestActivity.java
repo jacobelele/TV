@@ -11,9 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import junit.framework.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -64,13 +69,13 @@ public class TestActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         if (response.isSuccessful()) {
-                            String resString = response.body().string();
-
-//                    Gson gson = new Gson();
-//                    Type type = new TypeToken<List<Food>>() {
-//                    }.getType();
-//                    List<Food> foodList = gson.fromJson(response.body().string(), type);
-                            Log.d("Test Api", resString);
+//                            List<Food> resString = (List<Food>) response.body();
+//                            Gson
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<Food>>() {
+                    }.getType();
+                    List<Food> foodList = gson.fromJson(response.body().string(), type);
+                            Log.d("Test Api", foodList.get(0).getName());
                         } else{
                             Log.d("Test Api", response.message());
                         }

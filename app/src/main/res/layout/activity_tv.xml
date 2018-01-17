@@ -16,17 +16,6 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <LinearLayout
-            android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/colorAccent"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent">
-
-        </LinearLayout>
 
         <VideoView
             android:id="@+id/fullscreen_content"
@@ -39,7 +28,10 @@
             android:textColor="#33b5e5"
             android:textSize="50sp"
             android:textStyle="bold" />
+
+
     </FrameLayout>
+
 
     <ListView
         android:id="@+id/ListChannel"
@@ -47,7 +39,97 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="800dp"
         android:headerDividersEnabled="false"
-        android:textColor = "#F00"
+        android:paddingTop="70dp"
+        android:textColor="#F00"
         android:visibility="visible" />
 
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="?attr/colorError">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            app:srcCompat="@mipmap/ic_launcher_ga1"
+            android:layout_width="60dp"
+            android:layout_height="80dp"
+            android:layout_rowSpan="2" />
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_rowSpan="2"
+            android:background="#ffffff" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_row="0"
+            android:text="Welcome"
+            android:textColor="@android:color/background_light" />
+
+        <View
+            android:id="@+id/separator2"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="200dp"
+            android:layout_rowSpan="2"
+            android:background="#ffffff" />
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_row="0"
+            android:text="Room Number :"
+            android:textColor="@android:color/background_light" />
+
+        <TextView
+            android:id="@+id/nameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_row="1"
+            android:text="Mrs RURI"
+            android:textColor="@android:color/background_light" />
+
+        <TextView
+            android:id="@+id/dateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
+            android:layout_row="1"
+            android:text="23 September 2017"
+            android:textColor="@android:color/background_light" />
+
+        <View
+            android:id="@+id/separator3"
+            android:layout_width="2dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_rowSpan="2"
+            android:background="#ffffff" />
+
+        <TextView
+            android:id="@+id/timeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="5"
+            android:layout_marginStart="40dp"
+            android:layout_row="1"
+            android:text="20:17"
+            android:textColor="@android:color/background_light" />
+
+
+    </GridLayout>
 </FrameLayout>

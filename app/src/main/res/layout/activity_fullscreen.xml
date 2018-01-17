@@ -30,74 +30,115 @@
         android:fitsSystemWindows="true"
         android:background="#000000">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="590dp"
-            android:layout_height="match_parent"
+        <GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom"
+            android:alignmentMode="alignMargins"
+            android:background="#80ffffff"
+            android:columnCount="5"
+            android:rowCount="1"
             android:visibility="visible">
 
-        </android.support.v4.view.ViewPager>
+            <ImageButton
+                android:id="@+id/TvChannel"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:background="#80ffffff"
+                android:src="@mipmap/ic_tvch"/>
 
-        <ImageButton
-            android:id="@+id/Tv"
-            android:layout_width="100dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="160dp"
-            android:layout_marginTop="220dp"
-            android:layout_weight="1"
-            android:paddingTop="100dp"
-            android:visibility="visible"
-            app:srcCompat="@android:color/holo_red_dark" />
+            <ImageButton
+                android:id="@+id/InHousePromo"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:background="#80ffffff"
+                android:src="@mipmap/ic_ihp" />
 
-        <ImageButton
-            android:id="@+id/Dining"
-            android:layout_width="100dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="270dp"
-            android:layout_marginTop="220dp"
-            android:layout_weight="1"
-            android:paddingTop="100dp"
-            android:visibility="visible"
-            app:srcCompat="@android:color/holo_red_dark" />
+            <ImageButton
+                android:id="@+id/Dining"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:background="#80ffffff"
+                android:src="@mipmap/ic_dinning" />
 
-        <ImageButton
-            android:id="@+id/Setting"
-            android:layout_width="100dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="490dp"
-            android:layout_marginTop="220dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="false"
-            android:baselineAlignBottom="false"
-            android:paddingTop="100dp"
-            android:visibility="visible"
-            app:srcCompat="@android:color/holo_red_dark" />
+            <ImageButton
+                android:id="@+id/Scenery"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:background="#80ffffff"
+                app:srcCompat="@mipmap/ic_scene" />
 
-        <ImageButton
-            android:id="@+id/Scenery"
-            android:layout_width="100dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="380dp"
-            android:layout_marginTop="220dp"
-            android:layout_weight="1"
-            android:paddingTop="100dp"
-            android:visibility="visible"
-            app:srcCompat="@android:color/holo_red_dark" />
+            <ImageButton
+                android:id="@+id/Setting"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:background="#80ffffff"
+                android:src="@mipmap/ic_setting"
+                android:visibility="visible" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="74dp"
-            android:layout_marginTop="220dp"
-            android:layout_weight="1"
-            android:paddingBottom="100dp"
-            android:text="Button"
-            android:textColor="#F00"/>
+            <!--<ImageButton
+                android:id="@+id/Setting"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:paddingTop="100dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/Scenery"
+                app:layout_constraintStart_toEndOf="@+id/Dining"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:color/holo_red_dark" />
+
+            <ImageButton
+                android:id="@+id/Scenery"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+                app:layout_constraintStart_toEndOf="@+id/Setting"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:color/holo_red_dark" />
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/Scenery"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@color/colorAccent" />-->
+        </GridLayout>
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@android:color/holo_red_light">
+            android:background="#90a7101b">
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -119,8 +160,10 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_row="0"
+                android:fontFamily="sans-serif"
                 android:text="Welcome"
                 android:textColor="@android:color/background_light" />
 
@@ -129,7 +172,7 @@
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
-                android:layout_marginStart="200dp"
+                android:layout_marginStart="10dp"
                 android:layout_rowSpan="2"
                 android:background="#ffffff" />
 
@@ -148,8 +191,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
+                android:layout_gravity="fill_horizontal"
                 android:layout_row="1"
-                android:text="Mrs RURI"
+                android:text="MR. RURI"
                 android:textColor="@android:color/background_light" />
 
             <TextView
@@ -182,6 +226,14 @@
 
 
         </GridLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="590dp"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+        </android.support.v4.view.ViewPager>
 
     </FrameLayout>
 

@@ -1,10 +1,12 @@
 package com.example.nazam.grandhika;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.StrictMode;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -120,7 +122,7 @@ public class FullscreenActivity extends AppCompatActivity {
     };
     private CustomPageAdapter mCustomPagerAdapter;
     private ViewPager mViewPager;
-    private String url = "http://195.110.58.237:8080/iptv2";
+    private String url = "http://195.110.58.237:8080/iptvportal";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,6 +133,9 @@ public class FullscreenActivity extends AppCompatActivity {
 //        mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         //call api get bitmap set into mBitmap
         /*api.Adapter.service().listAdvImage().enqueue(new Callback<List<AdvImage>>() {
             @Override
@@ -156,31 +161,13 @@ public class FullscreenActivity extends AppCompatActivity {
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
                 if(response.isSuccessful()){
                     List<String> listAdvImage = response.body();
-                    Log.v("Berhasil",listAdvImage.get(0));
                     if(mBitmap.size()>0)
                         mBitmap.clear();
                     for(int i=0;i<listAdvImage.size();i++){
-                        mBitmap.add(getBitmapFromURL(url+listAdvImage.get(0).substring(3)));
+//                        Log.v("Berhasil",url+listAdvImage.get(0).substring(2));
+                        mBitmap.add(getBitmapFromURL(url+listAdvImage.get(i).substring(2),FullscreenActivity.this));
                     }
-                    mCustomPagerAdapter = new CustomPageAdapter(getApplicationContext());
-                    mViewPager = (ViewPager) findViewById(R.id.pager);
-                    mViewPager.setAdapter(mCustomPagerAdapter);
-                    final Handler handler = new Handler();
-                    final Runnable Update = new Runnable() {
-                        public void run() {
-                            if (currentPage == 7) {
-                                currentPage = 0;
-                            }
-                            mViewPager.setCurrentItem(currentPage++, true);
-                        }
-                    };
-                    Timer swipeTimer = new Timer();
-                    swipeTimer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            handler.post(Update);
-                        }
-                    }, 2500, 2500);
+                    tes();
                 }
             }
 
@@ -246,6 +233,28 @@ public class FullscreenActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void tes(){
+        mCustomPagerAdapter = new CustomPageAdapter(getApplicationContext());
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mCustomPagerAdapter);
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage >= 6) {
+                    currentPage = 0;
+                }
+                mViewPager.setCurrentItem(currentPage++, true);
+            }
+        };
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 2500, 2500);
     }
 
     @Override
@@ -339,7 +348,8 @@ public class FullscreenActivity extends AppCompatActivity {
         }
     }
 
-    public static Bitmap getBitmapFromURL(String src){
+    public static Bitmap getBitmapFromURL(String src, Activity activity){
+
         try{
             URL url = new URL(src);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -347,6 +357,7 @@ public class FullscreenActivity extends AppCompatActivity {
             connection.connect();
             InputStream input = connection.getInputStream();
             Bitmap bitmap = BitmapFactory.decodeStream(input);
+            Log.v("Load Image",src);
             return bitmap;
         }catch (IOException e){
             e.printStackTrace();

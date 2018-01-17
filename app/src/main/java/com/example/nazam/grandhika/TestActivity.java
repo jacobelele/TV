@@ -54,7 +54,7 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
-        new BackgroundNetwork(TestActivity.this){
+       /* new BackgroundNetwork(TestActivity.this){
             @Override
             protected String doInBackground(String... strings) {
                 OkHttpClient client = new OkHttpClient();
@@ -88,7 +88,7 @@ public class TestActivity extends AppCompatActivity {
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
             }
-        }.execute();
+        }.execute();*/
 
     }
 

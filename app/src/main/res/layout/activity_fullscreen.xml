@@ -27,7 +27,16 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:background="#000000">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="590dp"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+        </android.support.v4.view.ViewPager>
 
         <ImageButton
             android:id="@+id/Tv"
@@ -87,13 +96,13 @@
 
         <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="?attr/colorError">
+            android:layout_height="60dp"
+            android:background="@android:color/holo_red_light">
 
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="60dp"
-                android:layout_height="80dp"
+                android:layout_height="match_parent"
                 android:layout_rowSpan="2"
                 android:src="@mipmap/ic_launcher_ga1" />
 
@@ -110,7 +119,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_row="0"
                 android:text="Welcome"
                 android:textColor="@android:color/background_light" />
@@ -129,7 +138,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_row="0"
                 android:text="Room Number :"
                 android:textColor="@android:color/background_light" />
@@ -173,15 +182,6 @@
 
 
         </GridLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="590dp"
-            android:layout_height="match_parent"
-            android:visibility="visible">
-
-        </android.support.v4.view.ViewPager>
-
 
     </FrameLayout>
 

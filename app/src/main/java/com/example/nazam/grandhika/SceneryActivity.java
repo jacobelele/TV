@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -105,7 +107,62 @@ public class SceneryActivity extends AppCompatActivity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-//        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        final ImageView imv = findViewById(R.id.imageView);
+        final ImageView imv1 = findViewById(R.id.imageView2);
+        final ImageView imv2 = findViewById(R.id.imageView3);
+        final ImageView imv3 = findViewById(R.id.imageView4);
+        final TextView txt = findViewById(R.id.imageViewText);
+        final TextView txt1 = findViewById(R.id.imageView2Text);
+        final TextView txt2 = findViewById(R.id.imageView3Text);
+        final TextView txt3 = findViewById(R.id.imageView4Text);
+        imv.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (imv.hasFocus()) {
+                    txt.setText("yes");
+                } else{
+                    txt.setText("no");
+                }
+            }
+        });
+
+        imv1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (imv1.hasFocus()) {
+                    txt1.setText("yes");
+                } else{
+                    txt1.setText("no");
+                }
+            }
+        });
+
+        imv2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (imv2.hasFocus()) {
+                    txt2.setText("yes");
+                } else{
+                    txt2.setText("no");
+                }
+            }
+        });
+
+        imv3.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (imv3.hasFocus()) {
+                    txt3.setText("yes");
+                } else{
+                    txt3.setText("no");
+                }
+            }
+        });
+//                .setOnTouchListener(mDelayHideTouchListener);
     }
 
     @Override

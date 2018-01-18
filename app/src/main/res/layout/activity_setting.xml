@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#ffffff"
     tools:context="com.example.nazam.grandhika.SettingActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -31,85 +31,280 @@
             android:layout_rowSpan="2"
             android:background="#ffffff" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_row="0"
-            android:text="Welcome"
-            android:textColor="@android:color/background_light" />
+
 
         <View
             android:id="@+id/separator2"
             android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="200dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="400dp"
+            android:layout_marginTop="20dp"
             android:layout_rowSpan="2"
             android:background="#ffffff" />
-
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
             android:layout_row="0"
-            android:text="Room Number :"
+            android:text="Settings"
             android:textColor="@android:color/background_light" />
-
-        <TextView
-            android:id="@+id/nameTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="2"
-            android:layout_row="1"
-            android:text="Mrs RURI"
-            android:textColor="@android:color/background_light" />
-
-        <TextView
-            android:id="@+id/dateTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="4"
-            android:layout_row="1"
-            android:text="23 September 2017"
-            android:textColor="@android:color/background_light" />
-
-        <View
-            android:id="@+id/separator3"
-            android:layout_width="2dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="30dp"
-            android:layout_rowSpan="2"
-            android:background="#ffffff" />
-
-        <TextView
-            android:id="@+id/timeTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="5"
-            android:layout_marginStart="40dp"
-            android:layout_row="1"
-            android:text="20:17"
-            android:textColor="@android:color/background_light" />
-
 
     </GridLayout>
 
     <TextView
-        android:id="@+id/fullscreen_content"
+        android:textSize="@dimen/fab_margin"
+        android:textColor="#000000"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="#33b5e5"
-        android:textColorLink="@android:color/background_light"
-        android:textSize="50sp"
+        android:layout_marginTop="80dp"
+        android:text="Network Setting"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:textSize="@dimen/fab_margin"
+        android:textColor="#000000"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="180dp"
+        android:text="Video Setting"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="250dp"
+        android:gravity="center_horizontal"
+        android:text="Other"
+        android:textColor="#000000"
+        android:textSize="@dimen/fab_margin"
         android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="150dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingTop="40dp"
+        android:singleLine="true"
+        android:text="Server Port"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="350dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingTop="40dp"
+        android:singleLine="true"
+        android:text="_ _ _ _"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="150dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingTop="70dp"
+        android:singleLine="true"
+        android:text="Local Network"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="150dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingTop="100dp"
+        android:singleLine="true"
+        android:text="Local MAC"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="350dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingTop="100dp"
+        android:singleLine="true"
+        android:text="_ _ _ _"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="150dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingTop="180dp"
+        android:singleLine="true"
+        android:text="VoD mode"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="350dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingTop="180dp"
+        android:singleLine="true"
+        android:text="IPTV Player"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="150dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingTop="210dp"
+        android:singleLine="true"
+        android:text="Decoding Mode"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="350dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingTop="210dp"
+        android:singleLine="true"
+        android:text="Hardware"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="150dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingTop="240dp"
+        android:singleLine="true"
+        android:text="Onboot play"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="350dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingTop="240dp"
+        android:singleLine="true"
+        android:text="Auto Play Live"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_marginStart="150dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:text="Server IP"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_marginStart="350dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:text="_ _ _ _ _ _ _ _ _ _ _"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="150dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingTop="250dp"
+        android:singleLine="true"
+        android:text="Password"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="350dp"
+        android:gravity="center_horizontal|fill_horizontal|center|fill"
+        android:keepScreenOn="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingTop="250dp"
+        android:singleLine="true"
+        android:text="Yes"
+        android:textColor="#000000"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="8sp" />
+
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->

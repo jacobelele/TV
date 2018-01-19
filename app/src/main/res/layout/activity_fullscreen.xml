@@ -6,38 +6,26 @@
     android:background="#ffffff"
     tools:context="com.example.nazam.grandhika.FullscreenActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-
-    <!--<ImageView-->
-        <!--android:id="@+id/fullscreen_content"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:gravity="center"-->
-        <!--android:keepScreenOn="true"-->
-        <!--android:text="@string/dummy_content"-->
-        <!--android:textColor="#33b5e5"-->
-        <!--android:textSize="50sp"-->
-        <!--android:textStyle="bold" />-->
-
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:background="#000000">
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="590dp"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+        </android.support.v4.view.ViewPager>
+
         <GridLayout
-            android:id="@+id/gridLayout"
+            android:id="@+id/menu_bottom_grid"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_gravity="bottom"
-            android:alignmentMode="alignMargins"
+            android:alignmentMode="alignBounds"
             android:background="#80ffffff"
             android:columnCount="5"
             android:rowCount="1"
@@ -49,8 +37,9 @@
                 android:layout_height="0dp"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                android:background="#80ffffff"
-                android:src="@mipmap/ic_tvch"/>
+                android:backgroundTint="#90a7101b"
+                android:contentDescription="@string/menu_tv"
+                app:srcCompat="@mipmap/ic_tvch_foreground" />
 
             <ImageButton
                 android:id="@+id/InHousePromo"
@@ -58,8 +47,9 @@
                 android:layout_height="0dp"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                android:background="#80ffffff"
-                android:src="@mipmap/ic_ihp" />
+                android:backgroundTint="#90a7101b"
+                android:contentDescription="@string/menu_inHousePromo"
+                android:src="@mipmap/ic_ihp_foreground" />
 
             <ImageButton
                 android:id="@+id/Dining"
@@ -67,8 +57,9 @@
                 android:layout_height="0dp"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                android:background="#80ffffff"
-                android:src="@mipmap/ic_dinning" />
+                android:backgroundTint="#90a7101b"
+                android:contentDescription="@string/menu_dining"
+                android:src="@mipmap/ic_dinning_foreground" />
 
             <ImageButton
                 android:id="@+id/Scenery"
@@ -76,8 +67,9 @@
                 android:layout_height="0dp"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                android:background="#80ffffff"
-                app:srcCompat="@mipmap/ic_scene" />
+                android:backgroundTint="#90a7101b"
+                android:contentDescription="@string/menu_scenery"
+                android:src="@mipmap/ic_scene_foreground" />
 
             <ImageButton
                 android:id="@+id/Setting"
@@ -85,67 +77,24 @@
                 android:layout_height="0dp"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                android:background="#80ffffff"
-                android:src="@mipmap/ic_setting"
-                android:visibility="visible" />
-
-            <!--<ImageButton
-                android:id="@+id/Setting"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:paddingTop="100dp"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/Scenery"
-                app:layout_constraintStart_toEndOf="@+id/Dining"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:color/holo_red_dark" />
-
-            <ImageButton
-                android:id="@+id/Scenery"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-                app:layout_constraintStart_toEndOf="@+id/Setting"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:color/holo_red_dark" />
-
-            <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/Scenery"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@color/colorAccent" />-->
+                android:backgroundTint="#90a7101b"
+                android:contentDescription="@string/menu_setting"
+                android:src="@mipmap/ic_setting_foreground" />
         </GridLayout>
 
         <GridLayout
+            android:id="@+id/menu_toolbar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="#90a7101b">
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="60dp"
+                android:layout_width="65dp"
                 android:layout_height="match_parent"
                 android:layout_rowSpan="2"
-                android:src="@mipmap/ic_launcher_ga1" />
+                android:contentDescription="@+string/logo"
+                android:src="@mipmap/ic_logo_foreground" />
 
             <View
                 android:id="@+id/separator"
@@ -164,7 +113,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_row="0"
                 android:fontFamily="sans-serif"
-                android:text="Welcome"
+                android:text="@string/welcome"
                 android:textColor="@android:color/background_light" />
 
             <View
@@ -183,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_row="0"
-                android:text="Room Number :"
+                android:text="@string/room_number"
                 android:textColor="@android:color/background_light" />
 
             <TextView
@@ -193,7 +142,7 @@
                 android:layout_column="2"
                 android:layout_gravity="fill_horizontal"
                 android:layout_row="1"
-                android:text="MR. RURI"
+                android:text="@string/name_person"
                 android:textColor="@android:color/background_light" />
 
             <TextView
@@ -202,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="4"
                 android:layout_row="1"
-                android:text="23 September 2017"
+                android:text="@string/dateMain"
                 android:textColor="@android:color/background_light" />
 
             <View
@@ -221,19 +170,11 @@
                 android:layout_column="5"
                 android:layout_marginStart="40dp"
                 android:layout_row="1"
-                android:text="20:17"
+                android:text="@string/time_main"
                 android:textColor="@android:color/background_light" />
 
 
         </GridLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="590dp"
-            android:layout_height="match_parent"
-            android:visibility="visible">
-
-        </android.support.v4.view.ViewPager>
 
     </FrameLayout>
 

@@ -224,7 +224,7 @@ public class FullscreenActivity extends AppCompatActivity {
         im3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent settingIntent = new Intent(FullscreenActivity.this, SettingActivity.class);
+                Intent settingIntent = new Intent(FullscreenActivity.this, SceneryActivity.class);
                 startActivity(settingIntent);
             }
         });

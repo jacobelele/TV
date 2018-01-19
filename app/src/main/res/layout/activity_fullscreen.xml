@@ -1,12 +1,14 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_weight="1"
     android:background="#ffffff"
+    android:orientation="vertical"
     tools:context="com.example.nazam.grandhika.FullscreenActivity">
 
-    <FrameLayout
+    <!--<FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
@@ -176,6 +178,235 @@
 
         </GridLayout>
 
-    </FrameLayout>
+    </FrameLayout>-->
 
-</FrameLayout>
+    <!--<android.support.constraint.ConstraintLayout
+        android:id="@+id/cons_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#90a7101b">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_logo_foreground" />
+    </android.support.constraint.ConstraintLayout>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#000000"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </android.support.v4.view.ViewPager>
+
+        <GridLayout
+            android:id="@+id/menu_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#90a7101b">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="65dp"
+                android:layout_height="match_parent"
+                android:layout_rowSpan="2"
+                android:contentDescription="@+string/logo"
+                android:src="@mipmap/ic_logo_foreground" />
+
+            <View
+                android:id="@+id/separator"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_rowSpan="2"
+                android:background="#ffffff" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_row="0"
+                android:fontFamily="sans-serif"
+                android:text="@string/welcome"
+                android:textColor="@android:color/background_light" />
+
+            <View
+                android:id="@+id/separator2"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_rowSpan="2"
+                android:background="#ffffff" />
+
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_row="0"
+                android:text="@string/room_number"
+                android:textColor="@android:color/background_light" />
+
+            <TextView
+                android:id="@+id/nameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_gravity="fill_horizontal"
+                android:layout_row="1"
+                android:text="@string/name_person"
+                android:textColor="@android:color/background_light" />
+
+            <TextView
+                android:id="@+id/dateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:layout_row="1"
+                android:text="@string/dateMain"
+                android:textColor="@android:color/background_light" />
+
+            <View
+                android:id="@+id/separator3"
+                android:layout_width="2dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="30dp"
+                android:layout_rowSpan="2"
+                android:background="#ffffff" />
+
+            <TextView
+                android:id="@+id/timeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="5"
+                android:layout_marginStart="40dp"
+                android:layout_row="1"
+                android:text="@string/time_main"
+                android:textColor="@android:color/background_light" />
+        </GridLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="false"
+            android:background="#80ffffff"
+            android:gravity="bottom|center"
+            android:orientation="horizontal">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cons_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0">
+
+                <ImageButton
+                    android:id="@+id/TvChannel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_rowWeight="1"
+                    android:backgroundTint="#a7101b"
+                    android:contentDescription="@string/menu_tv"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@mipmap/ic_tvch_foreground" />
+
+                <ImageButton
+                    android:id="@+id/InHousePromo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_rowWeight="1"
+                    android:backgroundTint="#a7101b"
+                    android:contentDescription="@string/menu_inHousePromo"
+                    android:src="@mipmap/ic_ihp_foreground"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/TvChannel"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/Dining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_rowWeight="1"
+                    android:backgroundTint="#a7101b"
+                    android:contentDescription="@string/menu_dining"
+                    android:src="@mipmap/ic_dinning_foreground"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/Scenery" />
+
+                <ImageButton
+                    android:id="@+id/Scenery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_rowWeight="1"
+                    android:backgroundTint="#a7101b"
+                    android:contentDescription="@string/menu_scenery"
+                    android:src="@mipmap/ic_scene_foreground"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/Setting"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/Setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_rowWeight="1"
+                    android:backgroundTint="#a7101b"
+                    android:contentDescription="@string/menu_setting"
+                    android:src="@mipmap/ic_setting_foreground"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/InHousePromo"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

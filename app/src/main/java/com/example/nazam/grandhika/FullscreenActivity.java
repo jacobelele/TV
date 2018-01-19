@@ -177,9 +177,6 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-
-
-
 //        // Set up the user interaction to manually show or hide the system UI.
         /*mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,7 +190,7 @@ public class FullscreenActivity extends AppCompatActivity {
 //        // while interacting with the UI.
 //        findViewById(R.id.Tv).setOnTouchListener(mDelayHideTouchListener);
 
-        ImageButton im = findViewById(R.id.Tv);
+        ImageButton im = findViewById(R.id.TvChannel);
         im.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,7 +200,7 @@ public class FullscreenActivity extends AppCompatActivity {
         });
 
 //        findViewById(R.id.Dining).setOnTouchListener(mDelayHideTouchListener);
-        ImageButton im1 = findViewById(R.id.Dining);
+        ImageButton im1 = findViewById(R.id.InHousePromo);
         im1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,7 +210,7 @@ public class FullscreenActivity extends AppCompatActivity {
         });
 
 //        findViewById(R.id.Scenery).setOnTouchListener(mDelayHideTouchListener);
-        ImageButton im2 = findViewById(R.id.Scenery);
+        ImageButton im2 = findViewById(R.id.Dining);
         im2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,7 +220,7 @@ public class FullscreenActivity extends AppCompatActivity {
         });
 
 //        findViewById(R.id.Setting).setOnTouchListener(mDelayHideTouchListener);
-        ImageButton im3 = findViewById(R.id.Setting);
+        ImageButton im3 = findViewById(R.id.Scenery);
         im3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

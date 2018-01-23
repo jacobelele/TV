@@ -368,7 +368,7 @@
                     android:layout_rowWeight="1"
                     android:backgroundTint="#a7101b"
                     android:contentDescription="@string/menu_dining"
-                    android:src="@mipmap/ic_dinning_foreground"
+                    android:src="@mipmap/ic_dining_foreground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/Scenery" />

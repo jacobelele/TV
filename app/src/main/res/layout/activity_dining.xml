@@ -1,132 +1,139 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:layout_weight="1"
+    android:background="@android:color/black"
+    android:orientation="vertical"
     tools:context="com.example.nazam.grandhika.DiningActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-    <ImageView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="#33b5e5"
-        android:textSize="50sp"
-        android:textStyle="bold" />
 
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
+        <GridLayout
+            android:id="@+id/menu_toolbar_dining"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#90a7101b">
 
-    <ImageButton
-        android:id="@+id/Apetizer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="150dp"
-        android:adjustViewBounds="false"
-        android:contentDescription="Apetizer"
-        android:elevation="1dp"
-        android:paddingBottom="100dp"
-        android:paddingStart="100dp"
-        android:visibility="visible"
-        app:srcCompat="@android:color/holo_green_light" />
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="65dp"
+                android:layout_height="match_parent"
+                android:layout_rowSpan="2"
+                android:contentDescription="@+string/logo"
+                android:src="@mipmap/ic_logo_foreground" />
 
-    <ImageButton
-        android:id="@+id/MainCourse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="170dp"
-        android:layout_marginTop="150dp"
-        android:paddingBottom="100dp"
-        android:paddingStart="100dp"
-        app:srcCompat="@android:color/holo_red_dark" />
+            <View
+                android:id="@+id/separator"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_rowSpan="2"
+                android:background="#ffffff" />
 
-    <ImageButton
-        android:id="@+id/Dessert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="290dp"
-        android:layout_marginTop="150dp"
-        android:paddingBottom="100dp"
-        android:paddingStart="100dp"
-        app:srcCompat="@android:color/holo_red_dark" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_row="0"
+                android:fontFamily="sans-serif"
+                android:textColor="@android:color/background_light" />
 
-    <ImageButton
-        android:id="@+id/Beverages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="410dp"
-        android:layout_marginTop="150dp"
-        android:paddingStart="100dp"
-        android:paddingTop="100dp"
-        app:srcCompat="@android:color/holo_red_dark" />
+            <View
+                android:id="@+id/separator2"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_rowSpan="2"
+                android:background="#ffffff" />
 
-    <GridLayout
-        android:id="@+id/menu_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#90a7101b">
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="65dp"
-            android:layout_height="match_parent"
-            android:layout_rowSpan="2"
-            android:contentDescription="@+string/logo"
-            android:src="@mipmap/ic_logo_foreground" />
+            <TextView
+                android:id="@+id/nameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_gravity="fill_horizontal"
+                android:layout_row="1"
+                android:textColor="@android:color/background_light" />
 
-        <View
-            android:id="@+id/separator"
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_rowSpan="2"
-            android:background="#ffffff" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:layout_row="1"
+                android:textColor="#ffffff"
+                android:textSize="16dp"
+                android:text="DINING  "/>
 
-        <TextView
-            android:id="@+id/textView"
+        </GridLayout>
+
+        <!--<ImageButton
+            android:id="@+id/Apetizer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="fill_horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_row="0"
-            android:fontFamily="sans-serif"
-            android:textColor="@android:color/background_light" />
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="150dp"
+            android:adjustViewBounds="false"
+            android:contentDescription="Apetizer"
+            android:elevation="1dp"
+            android:paddingBottom="100dp"
+            android:paddingStart="100dp"
+            android:visibility="visible"
+            app:srcCompat="@android:color/holo_green_light" />
 
-        <View
-            android:id="@+id/separator2"
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_rowSpan="2"
-            android:background="#ffffff" />
-
-
-        <TextView
-            android:id="@+id/nameTitle"
+        <ImageButton
+            android:id="@+id/MainCourse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="2"
-            android:layout_gravity="fill_horizontal"
-            android:layout_row="1"
-            android:textColor="@android:color/background_light" />
+            android:layout_marginStart="170dp"
+            android:layout_marginTop="150dp"
+            android:paddingBottom="100dp"
+            android:paddingStart="100dp"
+            app:srcCompat="@android:color/holo_red_dark" />
 
-    </GridLayout>
+        <ImageButton
+            android:id="@+id/Dessert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="290dp"
+            android:layout_marginTop="150dp"
+            android:paddingBottom="100dp"
+            android:paddingStart="100dp"
+            app:srcCompat="@android:color/holo_red_dark" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_row="0"
-        android:text="@string/menu_dining"
-        android:textColor="@android:color/background_light" />
-</FrameLayout>
+        <ImageButton
+            android:id="@+id/Beverages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="410dp"
+            android:layout_marginTop="150dp"
+            android:paddingStart="100dp"
+            android:paddingTop="100dp"
+            app:srcCompat="@android:color/holo_red_dark" />-->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+            <FrameLayout
+                android:id="@+id/dining_menu_fragment"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="50dp"
+                android:layout_weight="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            </FrameLayout>
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

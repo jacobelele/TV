@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.nazam.grandhika.SceneryFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -16,22 +17,32 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical|center_horizontal|center">
 
-            <FrameLayout
-                android:layout_width="300dp"
-                android:layout_height="200dp">
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cons_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0">
 
-                <EditText
+                <TextView
                     android:id="@+id/txtMaimun"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_alignEnd="@+id/btnTjongafie"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="79dp"
+                    android:layout_marginEnd="141dp"
                     android:ems="10"
                     android:inputType="textMultiLine"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    />
 
                 <Button
                     android:id="@+id/btnMaimun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/btnTjongafie"
+                    android:layout_marginStart="108dp"
+                    android:layout_toEndOf="@+id/btnTjongafie"
                     android:backgroundTint="#a7101b"
                     android:drawableBottom="@drawable/maimun_palace"
                     android:drawablePadding="0dp"
@@ -39,14 +50,34 @@
                     android:text="MAIMUN PALACE"
                     android:textAlignment="gravity"
                     android:textColor="#ffffff"
-                    android:textSize="14dp" />
-            </FrameLayout>
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toEndOf="@id/btnTjongafie" />
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+            <TextView
+                android:id="@+id/txtTjongafie"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnTjongafie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="171dp"
+                    android:layout_toEndOf="@+id/txtTjongafie"
+                    android:backgroundTint="#a7101b"
+                    android:drawableBottom="@drawable/tjongafie"
+                    android:drawablePadding="0dp"
+                    android:gravity="top|center"
+                    android:text="Tjong A Fie"
+                    android:textAlignment="gravity"
+                    android:textColor="#ffffff"
+                    android:textSize="14dp" />
+
+            </android.support.constraint.ConstraintLayout>
         </TableRow>
 
         <TableRow
@@ -54,17 +85,64 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical|center_horizontal|center">
 
-            <Button
-                android:id="@+id/button7"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cons_menu1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:layout_weight="0">
 
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                <TextView
+                    android:id="@+id/txtMosque"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="textMultiLine"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnMosque"
+                    android:layout_width="282dp"
+                    android:layout_height="171dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="116dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_toEndOf="@+id/txtMosque"
+                    android:backgroundTint="#a7101b"
+                    android:drawableBottom="@drawable/mosque"
+                    android:drawablePadding="0dp"
+                    android:gravity="top|center"
+                    android:text="Great Mosque Of Medan"
+                    android:textAlignment="gravity"
+                    android:textColor="#ffffff"
+                    android:textSize="14dp"
+                    app:layout_constraintStart_toEndOf="@id/btnDanau"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtDanau"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="textMultiLine"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnDanau"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@+id/txtDanau"
+                    android:backgroundTint="#a7101b"
+                    android:drawableBottom="@drawable/danau"
+                    android:drawablePadding="0dp"
+                    android:gravity="top|center"
+                    android:text="Lake Toba"
+                    android:textAlignment="gravity"
+                    android:textColor="#ffffff"
+                    android:textSize="14dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="5dp" />
+            </android.support.constraint.ConstraintLayout>
         </TableRow>
 
     </TableLayout>

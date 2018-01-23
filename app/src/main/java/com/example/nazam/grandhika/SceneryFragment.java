@@ -5,11 +5,15 @@ import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 /**
@@ -32,7 +36,11 @@ public class SceneryFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private Button btnMaimun;
-    private EditText txtMaimun;
+    private TextView txtMaimun;
+    private Button btnTjongafie;
+    private TextView txtTjongafie;
+    private Button btnMosque;
+    private TextView txtMosque;
 
     public SceneryFragment() {
         // Required empty public constructor
@@ -96,6 +104,36 @@ public class SceneryFragment extends Fragment {
                 btnMaimun.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,null,null);*/
             }
         });
+
+        txtTjongafie = v.findViewById(R.id.txtTjongafie);
+        btnTjongafie = v.findViewById(R.id.btnTjongafie);
+        btnTjongafie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txtTjongafie.setText("Tjong A Fie Mansion \n"+
+                "\nTwo Story Mansion In Medan, Built By Tjong A Fie(1860-1921)"+
+                "\na Merchant who came to own much of the land in Medan through plantations"+
+                "\nlater becoming Majoor der Chineezen' (leader of the Chinese') in Medan and constructing the Medan-Belawan railway."+
+                "\nThe mosque has an octagonal shape and has wings to the south, east, north and west.");
+                txtTjongafie.setVisibility(View.VISIBLE);
+                btnTjongafie.setVisibility(View.GONE);
+            }
+        });
+
+        txtMosque = v.findViewById(R.id.txtMosque);
+        btnMosque = v.findViewById(R.id.btnMosque);
+        btnMosque.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txtMosque.setText("Great Mosque Of Medan \n"+
+                        "\nThe mosque was built in the year 1906 and completed in 1909."+
+                        "\nIn beginning of its establishment, the mosque was a part of the Maimun palace complex."+
+                        "\nIts architectural style combines Middle Eastern, Indian and Spanish elements.");
+                txtMosque.setVisibility(View.VISIBLE);
+                btnMosque.setVisibility(View.GONE);
+            }
+        });
+
 //        v.setOnClickListener(new View.OnClickListener() {
 //
 //            @Override
@@ -110,6 +148,7 @@ public class SceneryFragment extends Fragment {
 
 //        return inflater.inflate(R.layout.fragment_menu_scenery, container, false);
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

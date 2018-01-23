@@ -25,14 +25,13 @@
 
                 <TextView
                     android:id="@+id/txtMaimun"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignEnd="@+id/btnTjongafie"
+                    android:layout_alignEnd="@+id/btnMaimun"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="79dp"
                     android:layout_marginEnd="141dp"
                     android:ems="10"
-                    android:inputType="textMultiLine"
                     android:visibility="gone"
                     />
 
@@ -40,8 +39,8 @@
                     android:id="@+id/btnMaimun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/btnTjongafie"
                     android:layout_marginStart="108dp"
+                    android:layout_alignBottom="@+id/btnTjongafie"
                     android:layout_toEndOf="@+id/btnTjongafie"
                     android:backgroundTint="#a7101b"
                     android:drawableBottom="@drawable/maimun_palace"
@@ -53,13 +52,17 @@
                     android:textSize="14dp"
                     app:layout_constraintStart_toEndOf="@id/btnTjongafie" />
 
-            <TextView
-                android:id="@+id/txtTjongafie"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:visibility="gone" />
+                <TextView
+                    android:id="@+id/txtTjongafie"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignEnd="@+id/btnTjongafie"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="79dp"
+                    android:layout_marginEnd="141dp"
+                    android:ems="10"
+                    android:visibility="gone"
+                    />
 
                 <Button
                     android:id="@+id/btnTjongafie"
@@ -95,9 +98,13 @@
                     android:id="@+id/txtMosque"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_alignEnd="@+id/btnMosque"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="79dp"
+                    android:layout_marginEnd="141dp"
                     android:ems="10"
-                    android:inputType="textMultiLine"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    />
 
                 <Button
                     android:id="@+id/btnMosque"
@@ -122,9 +129,13 @@
                     android:id="@+id/txtDanau"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_alignEnd="@+id/btnDanau"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="79dp"
+                    android:layout_marginEnd="141dp"
                     android:ems="10"
-                    android:inputType="textMultiLine"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    />
 
                 <Button
                     android:id="@+id/btnDanau"
@@ -139,9 +150,7 @@
                     android:text="Lake Toba"
                     android:textAlignment="gravity"
                     android:textColor="#ffffff"
-                    android:textSize="14dp"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="5dp" />
+                    android:textSize="14dp"/>
             </android.support.constraint.ConstraintLayout>
         </TableRow>
 

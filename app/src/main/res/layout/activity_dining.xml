@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context="com.example.nazam.grandhika.DiningActivity">
 
-
         <GridLayout
             android:id="@+id/menu_toolbar_dining"
             android:layout_width="match_parent"
@@ -72,50 +71,6 @@
                 android:text="DINING  "/>
 
         </GridLayout>
-
-        <!--<ImageButton
-            android:id="@+id/Apetizer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="150dp"
-            android:adjustViewBounds="false"
-            android:contentDescription="Apetizer"
-            android:elevation="1dp"
-            android:paddingBottom="100dp"
-            android:paddingStart="100dp"
-            android:visibility="visible"
-            app:srcCompat="@android:color/holo_green_light" />
-
-        <ImageButton
-            android:id="@+id/MainCourse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="170dp"
-            android:layout_marginTop="150dp"
-            android:paddingBottom="100dp"
-            android:paddingStart="100dp"
-            app:srcCompat="@android:color/holo_red_dark" />
-
-        <ImageButton
-            android:id="@+id/Dessert"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="290dp"
-            android:layout_marginTop="150dp"
-            android:paddingBottom="100dp"
-            android:paddingStart="100dp"
-            app:srcCompat="@android:color/holo_red_dark" />
-
-        <ImageButton
-            android:id="@+id/Beverages"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="410dp"
-            android:layout_marginTop="150dp"
-            android:paddingStart="100dp"
-            android:paddingTop="100dp"
-            app:srcCompat="@android:color/holo_red_dark" />-->
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

@@ -2,8 +2,6 @@ package com.example.nazam.grandhika;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
 
 public class DiningActivity extends AppCompatActivity {
     private String url = "http://195.110.58.237:8080/iptvportal";

@@ -204,7 +204,7 @@ public class FullscreenActivity extends AppCompatActivity {
         im1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent diningIntent = new Intent(FullscreenActivity.this, DiningActivity.class);
+                Intent diningIntent = new Intent(FullscreenActivity.this, InHousePromoActivity.class);
                 startActivity(diningIntent);
             }
         });

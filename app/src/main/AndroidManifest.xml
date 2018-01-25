@@ -8,13 +8,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_ga1"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".TestActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -22,8 +18,9 @@
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -46,10 +43,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_setting"
             android:theme="@style/FullscreenTheme" />
-        <!-- <activity -->
-        <!-- android:name=".TestActivity" -->
-        <!-- android:label="@string/title_activity_test" -->
-        <!-- android:theme="@style/AppTheme.NoActionBar"></activity> -->
         <activity
             android:name=".InHousePromoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

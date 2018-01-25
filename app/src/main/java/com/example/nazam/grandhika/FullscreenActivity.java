@@ -30,6 +30,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -149,7 +151,7 @@ public class FullscreenActivity extends AppCompatActivity {
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        api.Adapter.service().room("D0:76:58:01:13:B0").enqueue(new Callback<Room>() {
+        api.Adapter.service().room(getMacAddress()).enqueue(new Callback<Room>() {
             @Override
             public void onResponse(Call<Room> call, Response<Room> response) {
                 if(response.isSuccessful()){
@@ -192,7 +194,7 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton im = findViewById(R.id.TvChannel);
+        im = findViewById(R.id.TvChannel);
         im.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -250,6 +252,7 @@ public class FullscreenActivity extends AppCompatActivity {
                     currentPage = 0;
                 }
                 mViewPager.setCurrentItem(currentPage++, true);
+                im.setFocusable(true);
             }
         };
         Timer swipeTimer = new Timer();
@@ -352,5 +355,28 @@ public class FullscreenActivity extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public String getMacAddress(){
+        try {
+            return loadFileAsString("/sys/class/net/eth0/address")
+                    .toUpperCase().substring(0, 17);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String loadFileAsString(String filePath) throws java.io.IOException{
+        StringBuffer fileData = new StringBuffer(1000);
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        char[] buf = new char[1024];
+        int numRead=0;
+        while((numRead=reader.read(buf)) != -1){
+            String readData = String.valueOf(buf, 0, numRead);
+            fileData.append(readData);
+        }
+        reader.close();
+        return fileData.toString();
     }
 }

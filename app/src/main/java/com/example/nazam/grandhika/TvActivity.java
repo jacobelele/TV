@@ -27,6 +27,8 @@ import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -161,7 +163,7 @@ public class TvActivity extends AppCompatActivity {
                     // Start the MediaController
                     MediaController mediacontroller = new MediaController(
                             TvActivity.this);
-                    mediacontroller.setAnchorView(videoView);
+//                    mediacontroller.setAnchorView(videoView);
                     // Get the URL from String VideoURL
                     Log.v("Fariz","url:"+listChannel.get(i).getUrl());
                     Uri video = Uri.parse(listChannel.get(i).getUrl());
@@ -184,7 +186,7 @@ public class TvActivity extends AppCompatActivity {
             }
         });
 
-        api.Adapter.service().tvChannel("D0:76:58:01:13:B0",0).enqueue(new Callback<List<TvChannel>>() {
+        api.Adapter.service().tvChannel(getMacAddress(),0).enqueue(new Callback<List<TvChannel>>() {
             @Override
             public void onResponse(Call<List<TvChannel>> call, Response<List<TvChannel>> response) {
                 if(response.isSuccessful()){
@@ -315,5 +317,28 @@ public class TvActivity extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public String getMacAddress(){
+        try {
+            return loadFileAsString("/sys/class/net/eth0/address")
+                    .toUpperCase().substring(0, 17);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String loadFileAsString(String filePath) throws java.io.IOException{
+        StringBuffer fileData = new StringBuffer(1000);
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        char[] buf = new char[1024];
+        int numRead=0;
+        while((numRead=reader.read(buf)) != -1){
+            String readData = String.valueOf(buf, 0, numRead);
+            fileData.append(readData);
+        }
+        reader.close();
+        return fileData.toString();
     }
 }

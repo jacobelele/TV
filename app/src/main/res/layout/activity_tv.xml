@@ -5,13 +5,7 @@
     android:background="#ffffff"
     tools:context="com.example.nazam.grandhika.TvActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
-    <FrameLayout
+    <!--<FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
@@ -43,53 +37,100 @@
         android:headerDividersEnabled="false"
         android:paddingTop="70dp"
         android:textColor="#F00"
-        android:visibility="visible" />
+        android:visibility="visible" />-->
 
 
-    <GridLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="?attr/colorError">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2">
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="60dp"
-            android:layout_height="80dp"
-            android:layout_rowSpan="2"
-            android:src="@mipmap/ic_launcher_ga1" />
-
-        <View
-            android:id="@+id/separator"
-            android:layout_width="2dp"
+        <GridLayout
+            android:id="@+id/menu_toolbar_tv"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_rowSpan="2"
-            android:background="#ffffff" />
+            android:layout_weight="1.75"
+            android:background="#a7101b">
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="65dp"
+                android:layout_height="match_parent"
+                android:layout_rowSpan="2"
+                android:contentDescription="@+string/logo"
+                android:src="@mipmap/ic_logo_foreground" />
+
+            <View
+                android:id="@+id/separator"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_rowSpan="2"
+                android:background="#ffffff" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_row="0"
+                android:fontFamily="sans-serif"
+                android:textColor="@android:color/background_light" />
+
+            <View
+                android:id="@+id/separator2"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_rowSpan="2"
+                android:background="#ffffff" />
 
 
+            <TextView
+                android:id="@+id/nameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_gravity="fill_horizontal"
+                android:layout_row="1"
+                android:textColor="@android:color/background_light" />
 
-        <View
-            android:id="@+id/separator2"
-            android:layout_width="2dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="400dp"
-            android:layout_marginTop="20dp"
-            android:layout_rowSpan="2"
-            android:background="#ffffff" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="4"
+                android:layout_row="1"
+                android:text="TV Channels  "
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
-            android:layout_row="0"
-            android:text="Tv Channel"
-            android:textColor="@android:color/background_light" />
+        </GridLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
+            <ListView
+                android:id="@android:id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.6"
+                android:background="@color/ic_appetizer_background" />
 
+            <VideoView
+                android:id="@+id/videoView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerInParent="true"
+                android:layout_weight="0.4" />
+        </LinearLayout>
+    </LinearLayout>
 
-    </GridLayout>
 </FrameLayout>

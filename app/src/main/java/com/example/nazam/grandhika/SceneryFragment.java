@@ -1,18 +1,13 @@
 package com.example.nazam.grandhika;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.transition.AutoTransition;
-import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.BounceInterpolator;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -41,6 +36,8 @@ public class SceneryFragment extends Fragment {
     private TextView txtTjongafie;
     private Button btnMosque;
     private TextView txtMosque;
+    private Button btnDanau;
+    private TextView txtDanau;
 
     public SceneryFragment() {
         // Required empty public constructor
@@ -71,8 +68,6 @@ public class SceneryFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-//        btnMaimun = getView().findViewById(R.id.btnMaimun);
-
     }
 
     @Override
@@ -81,72 +76,108 @@ public class SceneryFragment extends Fragment {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_menu_scenery, container, false);
         txtMaimun = v.findViewById(R.id.txtMaimun);
+        txtMaimun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtMaimun.getVisibility()==View.VISIBLE){
+                    txtMaimun.setVisibility(View.INVISIBLE);
+                    btnMaimun.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         btnMaimun = v.findViewById(R.id.btnMaimun);
+//        btnMaimun.drawable
         btnMaimun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                txtMaimun.setText("GREAT MOSQUE OF MEDAN \n" +
-                        "\nGreat Mosque of Medan or Masjid Raya Al-Mashun is a mosque " +
-                        "\nbuilt in the year 1906 and completed in 1909. In the beginning" +
-                        "\nof its establishment, the mosque was a part of the Maimun" +
-                        "\npalace complex." +
-                        "\n\tJl. Sisingamangaraja No. 178, Medan Kota, Medan.");
-                txtMaimun.setVisibility(View.VISIBLE);
-                btnMaimun.setVisibility(View.GONE);
-                /*btnMaimun.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
-                btnMaimun.setText("GREAT MOSQUE OF MEDAN \n" +
-                        "\nGreat Mosque of Medan or Masjid Raya Al-Mashun is a mosque " +
-                        "\nbuilt in the year 1906 and completed in 1909. In the beginning" +
-                        "\nof its establishment, the mosque was a part of the Maimun" +
-                        "\npalace complex." +
-                        "\n\tJl. Sisingamangaraja No. 178, Medan Kota, Medan.");
-                btnMaimun.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                btnMaimun.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,null,null);*/
+                if(btnMaimun.getVisibility()==View.VISIBLE) {
+                    txtMaimun.setText("Maimun Palace \n" +
+                            "\nis an istana (royal palace) of the Sultanate of Deli and a well-known landmark in Medan, the capital city of North Sumatra, Indonesia. " +
+                            "Built by Sultan Ma'mun Al Rashid Perkasa Alamyah in years 1887–1891, " +
+                            "the palace was designed by the Dutch architect Theodoor van Erp." +
+                            "The Palace has become a popular tourist destination in the city. " +
+                            "Combining elements of Malay cultural heritage, Islamic and Indian architecture, with Spanish and Italian furniture and fittings." );
+                    txtMaimun.setVisibility(View.VISIBLE);
+                    btnMaimun.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
         txtTjongafie = v.findViewById(R.id.txtTjongafie);
+        txtTjongafie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtTjongafie.getVisibility()==View.VISIBLE){
+                    txtTjongafie.setVisibility(View.INVISIBLE);
+                    btnTjongafie.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         btnTjongafie = v.findViewById(R.id.btnTjongafie);
         btnTjongafie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                txtTjongafie.setText("Tjong A Fie Mansion \n"+
-                        "\nTwo Story Mansion In Medan, Built By Tjong A Fie(1860-1921)"+
-                        "\na Merchant who came to own much of the land in Medan through plantations"+
-                        "\nlater becoming Majoor der Chineezen' (leader of the Chinese') in Medan and constructing the Medan-Belawan railway."+
-                        "\nThe mosque has an octagonal shape and has wings to the south, east, north and west.");
-                txtTjongafie.setVisibility(View.VISIBLE);
-                btnTjongafie.setVisibility(View.GONE);
+                if(btnTjongafie.getVisibility()==View.VISIBLE) {
+                    txtTjongafie.setText("Tjong A Fie Mansion \n" +
+                            "\nTwo Story Mansion In Medan, Built By Tjong A Fie(1860-1921)" +
+                            "a Merchant who came to own much of the land in Medan through plantations" +
+                            "later becoming Majoor der Chineezen' (leader of the Chinese') in Medan and constructing the Medan-Belawan railway." +
+                            "The mosque has an octagonal shape and has wings to the south, east, north and west.");
+                    txtTjongafie.setVisibility(View.VISIBLE);
+                    btnTjongafie.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
         txtMosque = v.findViewById(R.id.txtMosque);
+        txtMosque.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtMosque.getVisibility()==View.VISIBLE){
+                    txtMosque.setVisibility(View.INVISIBLE);
+                    btnMosque.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         btnMosque = v.findViewById(R.id.btnMosque);
         btnMosque.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                txtMosque.setText("Great Mosque Of Medan \n"+
-                        "\nThe mosque was built in the year 1906 and completed in 1909."+
-                        "\nIn beginning of its establishment, the mosque was a part of the Maimun palace complex."+
-                        "\nIts architectural style combines Middle Eastern, Indian and Spanish elements.");
-                txtMosque.setVisibility(View.VISIBLE);
-                btnMosque.setVisibility(View.GONE);
+                if(btnMosque.getVisibility()==View.VISIBLE) {
+                    txtMosque.setText("Great Mosque Of Medan \n" +
+                            "\nThe mosque was built in the year 1906 and completed in 1909." +
+                            "In beginning of its establishment, the mosque was a part of the Maimun palace complex." +
+                            "Its architectural style combines Middle Eastern, Indian and Spanish elements.");
+                    txtMosque.setVisibility(View.VISIBLE);
+                    btnMosque.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
-//        v.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                //do your operation here
-//                // this will be called whenever user click anywhere in Fragment
-//            }
-//        });
-//        Button b = (Button) inflater.inflate(R.id.btnMaimun,container);
+        txtDanau = v.findViewById(R.id.txtDanau);
+        txtDanau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(txtDanau.getVisibility()==View.VISIBLE){
+                    txtDanau.setVisibility(View.INVISIBLE);
+                    btnDanau.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        btnDanau = v.findViewById(R.id.btnDanau);
+        btnDanau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(btnDanau.getVisibility()==View.VISIBLE) {
+                    txtDanau.setText("Lake Toba \n"+
+                            "\nLake Toba is an immense volcanic lake covering an area of 1,707 km² (1,000 km² bigger than Singapore) with an island in its centre."+
+                            "\nActually, Lake Toba is located in Prapat area in North Sumatra.");
+                    txtDanau.setVisibility(View.VISIBLE);
+                    btnDanau.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
         return v;
-
-
-//        return inflater.inflate(R.layout.fragment_menu_scenery, container, false);
     }
 
 
@@ -174,16 +205,6 @@ public class SceneryFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

@@ -71,7 +71,7 @@
 
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/txtRoomNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -80,7 +80,7 @@
                 android:textColor="@android:color/background_light" />
 
             <TextView
-                android:id="@+id/nameTitle"
+                android:id="@+id/txtNameTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -90,7 +90,7 @@
                 android:textColor="@android:color/background_light" />
 
             <TextView
-                android:id="@+id/dateTitle"
+                android:id="@+id/txtDateTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="4"
@@ -108,7 +108,7 @@
                 android:background="#ffffff" />
 
             <TextView
-                android:id="@+id/timeTitle"
+                android:id="@+id/txtTimeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="5"

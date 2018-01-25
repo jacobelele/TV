@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="@drawable/background_default"
     tools:context="com.example.nazam.grandhika.InHousePromoActivity">
 
     <android.support.v4.view.ViewPager
@@ -16,8 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </android.support.v4.view.ViewPager>
+        app:layout_constraintTop_toTopOf="parent"></android.support.v4.view.ViewPager>
 
     <GridLayout
         android:id="@+id/menu_toolbar_inhousepromo"
@@ -77,9 +76,9 @@
             android:layout_height="wrap_content"
             android:layout_column="4"
             android:layout_row="1"
+            android:text="PROMO  "
             android:textColor="#ffffff"
-            android:textSize="16dp"
-            android:text="PROMO  "/>
+            android:textSize="16dp" />
 
     </GridLayout>
 

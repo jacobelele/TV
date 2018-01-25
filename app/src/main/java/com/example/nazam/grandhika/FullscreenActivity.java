@@ -22,6 +22,7 @@ import android.widget.Adapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -33,12 +34,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import model.AdvImage;
+import model.Room;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -123,38 +127,49 @@ public class FullscreenActivity extends AppCompatActivity {
     private CustomPageAdapter mCustomPagerAdapter;
     private ViewPager mViewPager;
     private String url = "http://195.110.58.237:8080/iptvportal";
+    private TextView mNameTitle;
+    private TextView mTimeTitle;
+    private TextView mRoomNumber;
+    private TextView mDateTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_fullscreen);
 
-        mVisible = true;
-//        mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mContentView = findViewById(R.id.fullscreen_content);
+//        mVisible = true;
+//        mContentView = findViewById(R.id.fullscreen_content);
+
+        mNameTitle = findViewById(R.id.txtNameTitle);
+        mRoomNumber = findViewById(R.id.txtRoomNumber);
+        mDateTitle = findViewById(R.id.txtDateTitle);
+        mTimeTitle = findViewById(R.id.txtTimeTitle);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        //call api get bitmap set into mBitmap
-        /*api.Adapter.service().listAdvImage().enqueue(new Callback<List<AdvImage>>() {
+
+        api.Adapter.service().room("D0:76:58:01:13:B0").enqueue(new Callback<Room>() {
             @Override
-            public void onResponse(Call<List<AdvImage>> call, Response<List<AdvImage>> response) {
+            public void onResponse(Call<Room> call, Response<Room> response) {
                 if(response.isSuccessful()){
-                    List<AdvImage> listAdvImage = response.body();
-                    if(mBitmap.size()>0)
-                        mBitmap.clear();
-                    for(int i=0;i<listAdvImage.size();i++){
-                        mBitmap.add(getBitmapFromURL(url+listAdvImage.get(0).getPathImage().substring(3)));
-                    }
+                    Room room = response.body();
+                    mNameTitle.setText(room.getCheckPerson());
+                    mRoomNumber.setText(mRoomNumber.getText().toString()
+                            .subSequence(0,mRoomNumber.getText().length()-1)+room.getName());
+                    long timeMilis = room.getTimeMills();
+                    SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy");
+                    mDateTitle.setText(sdf.format(new Date(timeMilis)));
+                    sdf.applyPattern("HH:mm");
+                    mTimeTitle.setText(sdf.format(new Date(timeMilis)));
                 }
             }
 
             @Override
-            public void onFailure(Call<List<AdvImage>> call, Throwable t) {
-                Log.d("Api Test",t.getMessage());
+            public void onFailure(Call<Room> call, Throwable t) {
+
             }
-        });*/
+        });
 
         api.Adapter.service().listAdvImage().enqueue(new Callback<List<String>>() {
             @Override
@@ -177,19 +192,6 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-//        // Set up the user interaction to manually show or hide the system UI.
-        /*mContentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggle();
-            }
-        });*/
-//
-//        // Upon interacting with UI controls, delay any scheduled hide()
-//        // operations to prevent the jarring behavior of controls going away
-//        // while interacting with the UI.
-//        findViewById(R.id.Tv).setOnTouchListener(mDelayHideTouchListener);
-
         ImageButton im = findViewById(R.id.TvChannel);
         im.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,7 +201,6 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-//        findViewById(R.id.Dining).setOnTouchListener(mDelayHideTouchListener);
         ImageButton im1 = findViewById(R.id.InHousePromo);
         im1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,7 +210,6 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-//        findViewById(R.id.Scenery).setOnTouchListener(mDelayHideTouchListener);
         ImageButton im2 = findViewById(R.id.Dining);
         im2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,7 +219,6 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-//        findViewById(R.id.Setting).setOnTouchListener(mDelayHideTouchListener);
         ImageButton im3 = findViewById(R.id.Scenery);
         im3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,7 +228,15 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton im4 = findViewById(R.id.Setting);
+        im4.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View view) {
+                Intent settingIntent = new Intent(FullscreenActivity.this, SettingActivity.class);
+                startActivity(settingIntent);
+            }
+        });
     }
 
     private void tes(){
@@ -257,10 +264,6 @@ public class FullscreenActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
         delayedHide(100);
     }
 
@@ -273,17 +276,11 @@ public class FullscreenActivity extends AppCompatActivity {
     }
 
     private void hide() {
-        // Hide UI first
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
         }
-//        mControlsView.setVisibility(View.GONE);
         mVisible = false;
-
-        // Schedule a runnable to remove the status and navigation bar after a delay
-//        mHideHandler.removeCallbacks(mShowPart2Runnable);
-//        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
     }
 
     @SuppressLint("InlinedApi")
@@ -298,10 +295,6 @@ public class FullscreenActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
     }
 
-    /**
-     * Schedules a call to hide() in delay milliseconds, canceling any
-     * previously scheduled calls.
-     */
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
@@ -346,7 +339,6 @@ public class FullscreenActivity extends AppCompatActivity {
     }
 
     public static Bitmap getBitmapFromURL(String src, Activity activity){
-
         try{
             URL url = new URL(src);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

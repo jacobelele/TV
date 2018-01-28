@@ -6,6 +6,7 @@ import model.AdvImage;
 import model.Food;
 import model.Promo;
 import model.Room;
+import model.RunningText;
 import model.Setting;
 import model.TvChannel;
 import retrofit2.Call;
@@ -31,4 +32,7 @@ public interface GranDhikaService {
 
     @GET("GetLiveTV")
     Call<List<TvChannel>> tvChannel(@Query("mac") String mac, @Query("packageId") Integer packageId);
+
+    @GET("GetSubtitles")
+    Call<RunningText> runningText(@Query("mac") String mac);
 }

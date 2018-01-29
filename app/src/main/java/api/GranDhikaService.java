@@ -34,5 +34,5 @@ public interface GranDhikaService {
     Call<List<TvChannel>> tvChannel(@Query("mac") String mac, @Query("packageId") Integer packageId);
 
     @GET("GetSubtitles")
-    Call<RunningText> runningText(@Query("mac") String mac);
+    Call<List<RunningText>> runningText(@Query("mac") String mac);
 }

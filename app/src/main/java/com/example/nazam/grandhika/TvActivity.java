@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -20,6 +21,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -39,6 +43,7 @@ import java.util.List;
 import java.util.Locale;
 
 import model.Food;
+import model.RunningText;
 import model.TvChannel;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -123,6 +128,7 @@ public class TvActivity extends AppCompatActivity {
     private VideoView videoView;
     private List<TvChannel> listChannel;
     private ProgressDialog pDialog;
+    private TextView runningText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +136,9 @@ public class TvActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_tv);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 //        mVisible = true;
 //        mControlsView = findViewById(R.id.fullscreen_content_controls);
         /*mContentView = findViewById(R.id.fullscreen_content);
@@ -208,6 +217,33 @@ public class TvActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
 //        findViewById(R.id.).setOnTouchListener(mDelayHideTouchListener);
+        runningText = (TextView)findViewById(R.id.txtMarquee);
+        runningText.setSelected(true);
+        TranslateAnimation tanim = new TranslateAnimation(
+                TranslateAnimation.ABSOLUTE, 1.0f * videoView.getWidth(),
+                TranslateAnimation.ABSOLUTE, -1.0f * videoView.getWidth(),
+                TranslateAnimation.ABSOLUTE, 0.0f,
+                TranslateAnimation.ABSOLUTE, 0.0f);
+        tanim.setDuration(100);
+        tanim.setInterpolator(new LinearInterpolator());
+        tanim.setRepeatCount(Animation.INFINITE);
+        tanim.setRepeatMode(Animation.ABSOLUTE);
+        runningText.startAnimation(tanim);
+
+        api.Adapter.service().runningText(getMacAddress()).enqueue(new Callback<List<RunningText>>() {
+            @Override
+            public void onResponse(Call<List<RunningText>> call, Response<List<RunningText>> response) {
+                if(response.isSuccessful()){
+                    List<RunningText> listRt = response.body();
+//                    runningText.setText(listRt.get(0).getContent());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RunningText>> call, Throwable t) {
+
+            }
+        });
     }
 
 /*    @Override
@@ -321,9 +357,10 @@ public class TvActivity extends AppCompatActivity {
 
     public String getMacAddress(){
         try {
-            return loadFileAsString("/sys/class/net/eth0/address")
-                    .toUpperCase().substring(0, 17);
-        } catch (IOException e) {
+//            return loadFileAsString("/sys/class/net/eth0/address")
+//                    .toUpperCase().substring(0, 17);
+            return "D0:76:58:01:13:B0";
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

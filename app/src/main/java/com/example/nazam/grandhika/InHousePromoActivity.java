@@ -20,7 +20,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -50,13 +53,25 @@ public class InHousePromoActivity extends AppCompatActivity {
         api.Adapter.service().listPromo(0).enqueue(new Callback<List<Promo>>() {
             @Override
             public void onResponse(Call<List<Promo>> call, Response<List<Promo>> response) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
                 List<Promo> listPromo = response.body();
+//                listPromo
                 if(mBitmap.size()>0)
                     mBitmap.clear();
                 for(int i=0;i<listPromo.size();i++){
-                    mBitmap.add(getBitmapFromURL(url+listPromo.get(i).getImageUrl().substring(2)));
+                    if(listPromo.get(i).getEveryday()==0){
+                        try {
+                            if(sdf.parse(listPromo.get(i).getStartDate()).compareTo(now())>= 0  && sdf.parse(listPromo.get(i).getEndDate()).compareTo(now())<= 0){
+                                mBitmap.add(getBitmapFromURL(url + listPromo.get(i).getImageUrl().substring(2)));
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        mBitmap.add(getBitmapFromURL(url + listPromo.get(i).getImageUrl().substring(2)));
+                    }
                 }
-                setPageAdapter(listPromo.size());
+                setPageAdapter(mBitmap.size());
             }
 
             @Override
@@ -143,5 +158,9 @@ public class InHousePromoActivity extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private Date now(){
+        return new Date();
     }
 }

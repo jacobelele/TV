@@ -359,9 +359,10 @@ public class FullscreenActivity extends AppCompatActivity {
 
     public String getMacAddress(){
         try {
-            return loadFileAsString("/sys/class/net/eth0/address")
-                    .toUpperCase().substring(0, 17);
-        } catch (IOException e) {
+//            return loadFileAsString("/sys/class/net/eth0/address")
+//                    .toUpperCase().substring(0, 17);
+            return "D0:76:58:01:13:B0";
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

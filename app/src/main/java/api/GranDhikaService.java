@@ -15,24 +15,24 @@ import retrofit2.http.Query;
 
 
 public interface GranDhikaService {
-    @GET("GetAdvImage")
+    @GET("iptvportal/GetAdvImage")
     Call<List<String>> listAdvImage();
 
-    @GET("GetFood")
+    @GET("iptvportal/GetFood")
     Call<List<Food>> listFood(@Query("typeId") Integer typeId);
 
-    @GET("GetPromotion")
+    @GET("iptvportal/GetPromotion")
     Call<List<Promo>> listPromo(@Query("id") Integer id);
 
-    @GET("GetClient")
+    @GET("iptvportal/GetClient")
     Call<Room> room(@Query("mac") String mac);
 
-    @GET("GetSettings")
+    @GET("iptvportal/GetSettings")
     Call<Setting> setting();
 
-    @GET("GetLiveTV")
+    @GET("iptvportal/GetLiveTV")
     Call<List<TvChannel>> tvChannel(@Query("mac") String mac, @Query("packageId") Integer packageId);
 
-    @GET("GetSubtitles")
+    @GET("iptvportal/GetSubtitles")
     Call<List<RunningText>> runningText(@Query("mac") String mac);
 }

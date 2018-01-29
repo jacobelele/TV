@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.StrictMode;
@@ -133,6 +134,8 @@ public class FullscreenActivity extends AppCompatActivity {
     private TextView mTimeTitle;
     private TextView mRoomNumber;
     private TextView mDateTitle;
+    private SharedPreferences settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,6 +154,11 @@ public class FullscreenActivity extends AppCompatActivity {
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        settings = getSharedPreferences("UserInfo", 0);
+        String serverIp = settings.getString("server_ip", "").toString();
+        String serverPort = settings.getString("server_port", "").toString();
+        url = "http://"+serverIp+":"+serverPort+"/";
+        api.Adapter.setBaseUrl("http://"+serverIp+":"+serverPort+"/");
         api.Adapter.service().room(getMacAddress()).enqueue(new Callback<Room>() {
             @Override
             public void onResponse(Call<Room> call, Response<Room> response) {

@@ -219,23 +219,27 @@ public class TvActivity extends AppCompatActivity {
 //        findViewById(R.id.).setOnTouchListener(mDelayHideTouchListener);
         runningText = (TextView)findViewById(R.id.txtMarquee);
         runningText.setSelected(true);
-        TranslateAnimation tanim = new TranslateAnimation(
-                TranslateAnimation.ABSOLUTE, 1.0f * videoView.getWidth(),
-                TranslateAnimation.ABSOLUTE, -1.0f * videoView.getWidth(),
-                TranslateAnimation.ABSOLUTE, 0.0f,
-                TranslateAnimation.ABSOLUTE, 0.0f);
-        tanim.setDuration(100);
-        tanim.setInterpolator(new LinearInterpolator());
-        tanim.setRepeatCount(Animation.INFINITE);
-        tanim.setRepeatMode(Animation.ABSOLUTE);
-        runningText.startAnimation(tanim);
+//        TranslateAnimation tanim = new TranslateAnimation(
+//                TranslateAnimation.ABSOLUTE, 1.0f * videoView.getWidth(),
+//                TranslateAnimation.ABSOLUTE, -1.0f * videoView.getWidth(),
+//                TranslateAnimation.ABSOLUTE, 0.0f,
+//                TranslateAnimation.ABSOLUTE, 0.0f);
+//        tanim.setDuration(100);
+//        tanim.setInterpolator(new LinearInterpolator());
+//        tanim.setRepeatCount(Animation.INFINITE);
+//        tanim.setRepeatMode(Animation.ABSOLUTE);
+//        runningText.startAnimation(tanim);
 
         api.Adapter.service().runningText(getMacAddress()).enqueue(new Callback<List<RunningText>>() {
             @Override
             public void onResponse(Call<List<RunningText>> call, Response<List<RunningText>> response) {
                 if(response.isSuccessful()){
                     List<RunningText> listRt = response.body();
-//                    runningText.setText(listRt.get(0).getContent());
+
+                    String content = listRt.get(0).getContent();
+                    for(int i=0;i<10000;i++)
+                        content += "                                      ";
+                    runningText.setText(content);
                 }
             }
 

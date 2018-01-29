@@ -1,6 +1,7 @@
 package com.example.nazam.grandhika;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -40,6 +41,8 @@ public class InHousePromoActivity extends AppCompatActivity {
     private static int currentPage = 0;
     private List<Bitmap> mBitmap = new ArrayList<Bitmap>();
     private String url = "http://195.110.58.237:8080/iptvportal";
+    private SharedPreferences settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,11 @@ public class InHousePromoActivity extends AppCompatActivity {
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        settings = getSharedPreferences("UserInfo", 0);
+        String serverIp = settings.getString("server_ip", "").toString();
+        String serverPort = settings.getString("server_port", "").toString();
+        url = "http://"+serverIp+":"+serverPort+"/";
+        api.Adapter.setBaseUrl("http://"+serverIp+":"+serverPort+"/");
         api.Adapter.service().listPromo(0).enqueue(new Callback<List<Promo>>() {
             @Override
             public void onResponse(Call<List<Promo>> call, Response<List<Promo>> response) {

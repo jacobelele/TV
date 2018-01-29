@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class DiningActivity extends AppCompatActivity {
-    private String url = "http://195.110.58.237:8080/iptvportal";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

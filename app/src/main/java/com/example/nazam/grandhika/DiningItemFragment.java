@@ -1,6 +1,7 @@
 package com.example.nazam.grandhika;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -60,6 +61,7 @@ public class DiningItemFragment extends ListFragment {
     private TextView namaItem;
     private TextView hargaItem;
     private ImageView imageItem;
+    private SharedPreferences settings;
 
     public DiningItemFragment() {
         // Required empty public constructor
@@ -106,6 +108,11 @@ public class DiningItemFragment extends ListFragment {
         ketItem = (TextView)v.findViewById(R.id.ketItem);
         imageItem = (ImageView)v.findViewById(R.id.imageItemDetail);
 
+        settings = getActivity().getSharedPreferences("UserInfo", 0);
+        String serverIp = settings.getString("server_ip", "").toString();
+        String serverPort = settings.getString("server_port", "").toString();
+        url = "http://"+serverIp+":"+serverPort+"/";
+        api.Adapter.setBaseUrl("http://"+serverIp+":"+serverPort+"/");
         api.Adapter.service().listFood(mParam1).enqueue(new Callback<List<Food>>() {
             @Override
             public void onResponse(Call<List<Food>> call, Response<List<Food>> response) {

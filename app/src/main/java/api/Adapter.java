@@ -8,11 +8,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class Adapter {
-    public static final String BASE_URL = "http://195.110.58.237:8080/iptvportal/";
+    public static String BASE_URL = "http://195.110.58.237:8080/";
     public static Retrofit instance(){
         return new Retrofit.Builder().baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
+    }
+
+    public static void setBaseUrl(String baseUrl) {
+        BASE_URL = baseUrl;
     }
 
     public static GranDhikaService service(){return instance().create(GranDhikaService.class);}

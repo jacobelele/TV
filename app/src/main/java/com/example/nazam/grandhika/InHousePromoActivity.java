@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import api.Function;
 import model.Promo;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +41,7 @@ public class InHousePromoActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private static int currentPage = 0;
     private List<Bitmap> mBitmap = new ArrayList<Bitmap>();
-    private String url = "http://195.110.58.237:8080/iptvportal";
+    private String url;
     private SharedPreferences settings;
 
     @Override
@@ -54,10 +55,9 @@ public class InHousePromoActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         settings = getSharedPreferences("UserInfo", 0);
-        String serverIp = settings.getString("server_ip", "").toString();
-        String serverPort = settings.getString("server_port", "").toString();
-        url = "http://"+serverIp+":"+serverPort+"/";
-        api.Adapter.setBaseUrl("http://"+serverIp+":"+serverPort+"/");
+        String serverIp = settings.getString("server_ip", "101.101.101.9").toString();
+        String serverPort = settings.getString("server_port", "8080").toString();
+        url = "http://"+serverIp+":"+serverPort+"/iptvportal";
         api.Adapter.service().listPromo(0).enqueue(new Callback<List<Promo>>() {
             @Override
             public void onResponse(Call<List<Promo>> call, Response<List<Promo>> response) {
@@ -70,13 +70,13 @@ public class InHousePromoActivity extends AppCompatActivity {
                     if(listPromo.get(i).getEveryday()==0){
                         try {
                             if(sdf.parse(listPromo.get(i).getStartDate()).compareTo(now())>= 0  && sdf.parse(listPromo.get(i).getEndDate()).compareTo(now())<= 0){
-                                mBitmap.add(getBitmapFromURL(url + listPromo.get(i).getImageUrl().substring(2)));
+                                mBitmap.add(Function.getBitmapFromURL(url + listPromo.get(i).getImageUrl().substring(2)));
                             }
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
                     }else {
-                        mBitmap.add(getBitmapFromURL(url + listPromo.get(i).getImageUrl().substring(2)));
+                        mBitmap.add(Function.getBitmapFromURL(url + listPromo.get(i).getImageUrl().substring(2)));
                     }
                 }
                 setPageAdapter(mBitmap.size());
@@ -150,21 +150,6 @@ public class InHousePromoActivity extends AppCompatActivity {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((LinearLayout)object);
-        }
-    }
-
-    public static Bitmap getBitmapFromURL(String src){
-        try{
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap bitmap = BitmapFactory.decodeStream(input);
-            return bitmap;
-        }catch (IOException e){
-            e.printStackTrace();
-            return null;
         }
     }
 

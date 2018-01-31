@@ -1,25 +1,27 @@
 package com.example.nazam.grandhika;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.os.StrictMode;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,8 +46,10 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import api.Function;
 import model.AdvImage;
 import model.Room;
+import model.SettingApplication;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,6 +67,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private static final boolean AUTO_HIDE = true;
     private static int currentPage = 0;
     ImageButton im;
+    private static final String PASSWORD = "88888888";
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
@@ -129,7 +134,7 @@ public class FullscreenActivity extends AppCompatActivity {
     };
     private CustomPageAdapter mCustomPagerAdapter;
     private ViewPager mViewPager;
-    private String url = "http://195.110.58.237:8080/iptvportal";
+    private String url;
     private TextView mNameTitle;
     private TextView mTimeTitle;
     private TextView mRoomNumber;
@@ -142,9 +147,6 @@ public class FullscreenActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_fullscreen);
 
-//        mVisible = true;
-//        mContentView = findViewById(R.id.fullscreen_content);
-
         mNameTitle = findViewById(R.id.txtNameTitle);
         mRoomNumber = findViewById(R.id.txtRoomNumber);
         mDateTitle = findViewById(R.id.txtDateTitle);
@@ -155,11 +157,12 @@ public class FullscreenActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         settings = getSharedPreferences("UserInfo", 0);
-        String serverIp = settings.getString("server_ip", "").toString();
-        String serverPort = settings.getString("server_port", "").toString();
-        url = "http://"+serverIp+":"+serverPort+"/";
-        api.Adapter.setBaseUrl("http://"+serverIp+":"+serverPort+"/");
-        api.Adapter.service().room(getMacAddress()).enqueue(new Callback<Room>() {
+        ((SettingApplication)this.getApplication()).setServerIp(settings.getString("server_ip", "101.101.101.9").toString());
+        ((SettingApplication)this.getApplication()).setServerPort(settings.getString("server_port", "8080"));
+        ((SettingApplication)this.getApplication()).setMacAddress(settings.getString("mac_address", Function.getMacAddress()));
+        url = "http://"+((SettingApplication)this.getApplication()).getServerIp()+":"+((SettingApplication)this.getApplication()).getServerPort()+"/iptvportal";
+        api.Adapter.setBaseUrl(url+"/");
+        api.Adapter.service().room(Function.getMacAddress()).enqueue(new Callback<Room>() {
             @Override
             public void onResponse(Call<Room> call, Response<Room> response) {
                 if(response.isSuccessful()){
@@ -189,10 +192,11 @@ public class FullscreenActivity extends AppCompatActivity {
                     if(mBitmap.size()>0)
                         mBitmap.clear();
                     for(int i=0;i<listAdvImage.size();i++){
-//                        Log.v("Berhasil",url+listAdvImage.get(0).substring(2));
-                        mBitmap.add(getBitmapFromURL(url+listAdvImage.get(i).substring(2),FullscreenActivity.this));
+                        mBitmap.add(Function.getBitmapFromURL(url+listAdvImage.get(i).substring(2)));
                     }
                     tes();
+//                    im.setFocusable(true);
+                    im.setSelected(true);
                 }
             }
 
@@ -240,11 +244,40 @@ public class FullscreenActivity extends AppCompatActivity {
 
         ImageButton im4 = findViewById(R.id.Setting);
         im4.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View view) {
-                Intent settingIntent = new Intent(FullscreenActivity.this, SettingActivity.class);
-                startActivity(settingIntent);
+                LayoutInflater li = LayoutInflater.from(FullscreenActivity.this);
+                View promptsView = li.inflate(R.layout.layout_dialog, null);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        FullscreenActivity.this);
+                alertDialogBuilder.setView(promptsView);
+                final EditText userInput = (EditText) promptsView
+                        .findViewById(R.id.editTextPassword);
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setOnKeyListener(new DialogInterface.OnKeyListener() {
+                            @Override
+                            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
+                                if(keyEvent.getKeyCode()==KeyEvent.KEYCODE_DPAD_CENTER||
+                                        keyEvent.getKeyCode()==KeyEvent.KEYCODE_ENTER||
+                                        keyEvent.getKeyCode()==KeyEvent.KEYCODE_BUTTON_SELECT||
+                                        keyEvent.getKeyCode()==KeyEvent.KEYCODE_NUMPAD_ENTER){
+                                    if(userInput.getText().toString().equalsIgnoreCase(PASSWORD)) {
+                                        Intent settingIntent = new Intent(FullscreenActivity.this, SettingActivity.class);
+                                        startActivity(settingIntent);
+                                        dialogInterface.dismiss();
+                                        return true;
+                                    }else {
+                                        Toast.makeText(FullscreenActivity.this,"Wrong Password",Toast.LENGTH_SHORT);
+                                        dialogInterface.dismiss();
+                                        return false;
+                                    }
+                                }else
+                                    return false;
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
     }
@@ -260,7 +293,7 @@ public class FullscreenActivity extends AppCompatActivity {
                     currentPage = 0;
                 }
                 mViewPager.setCurrentItem(currentPage++, true);
-                im.setFocusable(true);
+                im.setSelected(true);
             }
         };
         Timer swipeTimer = new Timer();
@@ -347,45 +380,5 @@ public class FullscreenActivity extends AppCompatActivity {
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((LinearLayout)object);
         }
-    }
-
-    public static Bitmap getBitmapFromURL(String src, Activity activity){
-        try{
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap bitmap = BitmapFactory.decodeStream(input);
-            Log.v("Load Image",src);
-            return bitmap;
-        }catch (IOException e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public String getMacAddress(){
-        try {
-//            return loadFileAsString("/sys/class/net/eth0/address")
-//                    .toUpperCase().substring(0, 17);
-            return "D0:76:58:01:13:B0";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static String loadFileAsString(String filePath) throws java.io.IOException{
-        StringBuffer fileData = new StringBuffer(1000);
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        char[] buf = new char[1024];
-        int numRead=0;
-        while((numRead=reader.read(buf)) != -1){
-            String readData = String.valueOf(buf, 0, numRead);
-            fileData.append(readData);
-        }
-        reader.close();
-        return fileData.toString();
     }
 }

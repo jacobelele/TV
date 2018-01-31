@@ -1,52 +1,53 @@
 package com.example.nazam.grandhika;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MenuDiningFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MenuDiningFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
+import model.FoodType;
+import model.SettingApplication;
+import model.TvChannel;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MenuDiningFragment extends Fragment implements DiningItemFragment.OnFragmentInteractionListener{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final Integer percentage = 50;
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private RecyclerView recyclerView;
+    private String url;
+    private List<FoodType> foodTypeList;
 
     public MenuDiningFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MenuDiningFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static MenuDiningFragment newInstance(String param1, String param2) {
         MenuDiningFragment fragment = new MenuDiningFragment();
         Bundle args = new Bundle();
@@ -68,8 +69,11 @@ public class MenuDiningFragment extends Fragment implements DiningItemFragment.O
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         View v = inflater.inflate(R.layout.fragment_menu_dining, container, false);
-        View.OnClickListener btnclick = new View.OnClickListener() {
+        /*View.OnClickListener btnclick = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch(view.getId()){
@@ -139,11 +143,33 @@ public class MenuDiningFragment extends Fragment implements DiningItemFragment.O
                 ((BitmapDrawable)getResources().getDrawable(R.drawable.dessert)).getBitmap().getWidth()*percentage/100,
                 ((BitmapDrawable)getResources().getDrawable(R.drawable.dessert)).getBitmap().getHeight()*percentage/100,false);
         ibDessert.setImageBitmap(scaled);
-        ibDessert.setOnClickListener(btnclick);
+        ibDessert.setOnClickListener(btnclick);*/
+        recyclerView = (RecyclerView)v.findViewById(R.id.menuDining);
+        recyclerView.setHasFixedSize(true);
+        url = "http://"+((SettingApplication)getActivity().getApplication()).getServerIp()+":"+((SettingApplication)getActivity().getApplication()).getServerPort()+"/iptvportal";
+        Log.v("fariz url",url);
+        api.Adapter.service().listFoodType().enqueue(new Callback<List<FoodType>>() {
+            @Override
+            public void onResponse(Call<List<FoodType>> call, Response<List<FoodType>> response) {
+                if(response.isSuccessful()){
+                    foodTypeList = response.body();
+                    Log.v("fariz food type", foodTypeList.get(0).getImagePath());
+                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),4);
+                    recyclerView.setLayoutManager(layoutManager);
+                    MyAdapter adapter = new MyAdapter(getContext(), foodTypeList);
+                    recyclerView.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FoodType>> call, Throwable t) {
+
+            }
+        });
+
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -172,18 +198,77 @@ public class MenuDiningFragment extends Fragment implements DiningItemFragment.O
 
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public class MyAdapter extends RecyclerView.Adapter<MenuDiningFragment.MyAdapter.ViewHolder> {
+        private List<FoodType> galleryList;
+        private Context context;
+
+        public MyAdapter(Context context, List<FoodType> galleryList) {
+            this.galleryList = galleryList;
+            this.context = context;
+        }
+
+        @Override
+        public MenuDiningFragment.MyAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cell_layout, viewGroup, false);
+            return new MenuDiningFragment.MyAdapter.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(MenuDiningFragment.MyAdapter.ViewHolder viewHolder, int i) {
+            final int index = i;
+            viewHolder.title.setText(galleryList.get(i).getName());
+
+            if(!galleryList.get(i).getImagePath().equalsIgnoreCase("")) {
+//                viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                viewHolder.img.setText(galleryList.get(i).getName());
+                Picasso.with(context).load(url + galleryList.get(i).getImagePath().substring(2)).resize(200, 160).into(viewHolder.img);
+                viewHolder.img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DiningItemFragment categoryFragment = DiningItemFragment.newInstance(galleryList.get(index).getId(),galleryList.get(index).getName());
+                        categoryFragment.setArguments(getActivity().getIntent().getExtras());
+                        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.dining_menu_fragment, categoryFragment, "categoryFragmentTag");
+                        ft.addToBackStack(null);
+                        ft.commit();
+                    }
+                });
+            }else{
+//                viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                viewHolder.img.setText(galleryList.get(i).getName());
+                Picasso.with(context).load(Uri.parse("android.resource://com.example.nazam.grandhika/" + R.drawable.no_image)).resize(200, 160).into(viewHolder.img);
+                viewHolder.img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DiningItemFragment categoryFragment = DiningItemFragment.newInstance(galleryList.get(index).getId(),galleryList.get(index).getName());
+                        categoryFragment.setArguments(getActivity().getIntent().getExtras());
+                        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.dining_menu_fragment, categoryFragment, "categoryFragmentTag");
+                        ft.addToBackStack(null);
+                        ft.commit();
+                    }
+                });
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return galleryList.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder{
+            private TextView title;
+            private ImageButton img;
+            public ViewHolder(View view) {
+                super(view);
+
+                title = (TextView)view.findViewById(R.id.title);
+                img = (ImageButton) view.findViewById(R.id.img);
+            }
+        }
     }
 }

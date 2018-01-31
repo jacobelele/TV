@@ -296,61 +296,24 @@
             android:layout_gravity="center"
             android:gravity="center">
 
-            <TextView
-                android:id="@+id/textView11"
+            <Button
+                android:id="@+id/btnApps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enabled Password" />
+                android:background="@drawable/button_focus"
+                android:text="Apps"
+                android:textColor="@android:color/white" />
 
-            <Switch
-                android:id="@+id/switchPassword"
+            <Button
+                android:id="@+id/btnAndroidSetting"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_focus"
+                android:text="ANDROID SETTINGS"
+                android:textColor="@android:color/white" />
         </TableRow>
 
-        <TableRow
-            android:id="@+id/rowPass"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:visibility="invisible">
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password" />
-
-            <EditText
-                android:id="@+id/eTxtPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="numberPassword" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/rowConfirmPass"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:visibility="invisible">
-
-            <TextView
-                android:id="@+id/textView34"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Confirm Password" />
-
-            <EditText
-                android:id="@+id/eTxtConfirmPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="numberPassword" />
-        </TableRow>
     </TableLayout>
 
     <GridLayout

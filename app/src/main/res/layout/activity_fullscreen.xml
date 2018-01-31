@@ -19,26 +19,26 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#000000"
-            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-        </android.support.v4.view.ViewPager>
+            app:layout_constraintTop_toTopOf="parent"></android.support.v4.view.ViewPager>
 
         <GridLayout
             android:id="@+id/menu_toolbar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="#90a7101b">
+            android:background="#90a7101b"
+            android:paddingEnd="40dp"
+            android:paddingStart="40dp">
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="65dp"
+                android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:layout_rowSpan="2"
                 android:contentDescription="@+string/logo"
-                android:src="@mipmap/ic_logo_foreground" />
+                android:src="@drawable/logo_grandhika" />
 
             <View
                 android:id="@+id/separator"
@@ -98,22 +98,13 @@
                 android:text="@string/dateMain"
                 android:textColor="@android:color/background_light" />
 
-            <View
-                android:id="@+id/separator3"
-                android:layout_width="2dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="30dp"
-                android:layout_rowSpan="2"
-                android:background="#ffffff" />
-
             <TextView
                 android:id="@+id/txtTimeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="5"
-                android:layout_marginStart="40dp"
                 android:layout_row="1"
+                android:paddingRight="20dp"
                 android:text="@string/time_main"
                 android:textColor="@android:color/background_light" />
         </GridLayout>
@@ -138,12 +129,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_margin="30dp"
                     android:layout_rowWeight="1"
-                    android:background="#a7101b"
+                    android:background="@drawable/button_focus"
                     android:contentDescription="@string/menu_tv"
+                    android:focusableInTouchMode="true"
+                    android:focusedByDefault="true"
+                    android:nextFocusLeft="@+id/Setting"
+                    android:nextFocusRight="@+id/InHousePromo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -154,12 +147,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_margin="30dp"
                     android:layout_rowWeight="1"
-                    android:background="#a7101b"
+                    android:background="@drawable/button_focus"
                     android:contentDescription="@string/menu_inHousePromo"
+                    android:focusableInTouchMode="true"
+                    android:focusedByDefault="true"
+                    android:nextFocusLeft="@+id/TvChannel"
+                    android:nextFocusRight="@+id/Dining"
                     android:src="@mipmap/ic_ihp_foreground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/TvChannel"
@@ -170,12 +165,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_margin="30dp"
                     android:layout_rowWeight="1"
-                    android:background="#a7101b"
+                    android:background="@drawable/button_focus"
                     android:contentDescription="@string/menu_dining"
+                    android:focusableInTouchMode="true"
+                    android:focusedByDefault="true"
+                    android:nextFocusLeft="@+id/InHousePromo"
+                    android:nextFocusRight="@+id/Scenery"
                     android:src="@mipmap/ic_dining_foreground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/InHousePromo"
@@ -186,12 +183,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_margin="30dp"
                     android:layout_rowWeight="1"
-                    android:background="#a7101b"
+                    android:background="@drawable/button_focus"
                     android:contentDescription="@string/menu_scenery"
+                    android:focusableInTouchMode="true"
+                    android:focusedByDefault="true"
+                    android:nextFocusLeft="@+id/Dining"
+                    android:nextFocusRight="@+id/Setting"
                     android:src="@mipmap/ic_scene_foreground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/Dining"
@@ -202,13 +201,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_margin="30dp"
                     android:layout_rowWeight="1"
-                    android:background="#a7101b"
+                    android:background="@drawable/button_focus"
                     android:contentDescription="@string/menu_setting"
+                    android:focusableInTouchMode="true"
+                    android:focusedByDefault="true"
+                    android:nextFocusLeft="@+id/Scenery"
+                    android:nextFocusRight="@+id/TvChannel"
                     android:src="@mipmap/ic_setting_foreground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -218,6 +218,7 @@
 
             </android.support.constraint.ConstraintLayout>
         </LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>

@@ -6,8 +6,7 @@
     android:background="#80ffffff"
     tools:context="com.example.nazam.grandhika.MenuDiningFragment">
 
-
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -15,16 +14,16 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp">
 
             <ImageButton
                 android:id="@+id/btnAppetizer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/ic_appetizer_background"
+                android:layout_margin="30dp"
+                android:background="@drawable/button_focus"
+                android:src="@mipmap/ic_appetizer_foreground"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -33,10 +32,8 @@
                 android:id="@+id/btnMainCourse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/ic_main_course_background"
+                android:layout_margin="30dp"
+                android:background="@drawable/button_focus"
                 android:src="@mipmap/ic_main_course_foreground"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btnAppetizer"
@@ -46,10 +43,8 @@
                 android:id="@+id/btnBeverage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/ic_beverage_background"
+                android:layout_margin="30dp"
+                android:background="@drawable/button_focus"
                 android:src="@mipmap/ic_beverage_foreground"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btnMainCourse"
@@ -60,15 +55,28 @@
                 android:id="@+id/btnDessert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/ic_dessert_background"
+                android:layout_margin="30dp"
+                android:background="@drawable/button_focus"
                 android:src="@mipmap/ic_dessert_foreground"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btnBeverage"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
-    </LinearLayout>
+    </LinearLayout>-->
+
+    <!--<GridLayout
+        android:id="@+id/gridMenuDining"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        >
+
+    </GridLayout>-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/menuDining"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        />
 </FrameLayout>

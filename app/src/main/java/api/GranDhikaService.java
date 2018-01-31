@@ -2,11 +2,12 @@ package api;
 
 import java.util.List;
 
-import model.AdvImage;
 import model.Food;
+import model.FoodType;
 import model.Promo;
 import model.Room;
 import model.RunningText;
+import model.Scenery;
 import model.Setting;
 import model.TvChannel;
 import retrofit2.Call;
@@ -15,24 +16,30 @@ import retrofit2.http.Query;
 
 
 public interface GranDhikaService {
-    @GET("iptvportal/GetAdvImage")
+    @GET("GetAdvImage")
     Call<List<String>> listAdvImage();
 
-    @GET("iptvportal/GetFood")
+    @GET("GetFood")
     Call<List<Food>> listFood(@Query("typeId") Integer typeId);
 
-    @GET("iptvportal/GetPromotion")
+    @GET("GetFoodType")
+    Call<List<FoodType>> listFoodType();
+
+    @GET("GetPromotion")
     Call<List<Promo>> listPromo(@Query("id") Integer id);
 
-    @GET("iptvportal/GetClient")
+    @GET("GetClient")
     Call<Room> room(@Query("mac") String mac);
 
-    @GET("iptvportal/GetSettings")
+    @GET("GetSettings")
     Call<Setting> setting();
 
-    @GET("iptvportal/GetLiveTV")
+    @GET("GetLiveTV")
     Call<List<TvChannel>> tvChannel(@Query("mac") String mac, @Query("packageId") Integer packageId);
 
-    @GET("iptvportal/GetSubtitles")
+    @GET("GetSubtitles")
     Call<List<RunningText>> runningText(@Query("mac") String mac);
+
+    @GET("GetScenery")
+    Call<List<Scenery>> listScenery(@Query("id") Integer id);
 }

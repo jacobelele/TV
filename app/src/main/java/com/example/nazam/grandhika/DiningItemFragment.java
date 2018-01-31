@@ -28,6 +28,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import api.Adapter;
+import api.Function;
 import model.Food;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -111,8 +113,8 @@ public class DiningItemFragment extends ListFragment {
         settings = getActivity().getSharedPreferences("UserInfo", 0);
         String serverIp = settings.getString("server_ip", "").toString();
         String serverPort = settings.getString("server_port", "").toString();
-        url = "http://"+serverIp+":"+serverPort+"/";
-        api.Adapter.setBaseUrl("http://"+serverIp+":"+serverPort+"/");
+        url = "http://"+serverIp+":"+serverPort+"/iptvportal";
+//        api.Adapter.setBaseUrl("http://"+serverIp+":"+serverPort+"/");
         api.Adapter.service().listFood(mParam1).enqueue(new Callback<List<Food>>() {
             @Override
             public void onResponse(Call<List<Food>> call, Response<List<Food>> response) {
@@ -192,7 +194,7 @@ public class DiningItemFragment extends ListFragment {
             hargaItem.setText(nf.format((double)food.getPrice()));
             namaItem.setText(food.getName());
             ketItem.setText(food.getContent());
-            Bitmap b = getBitmapFromURL(url+food.getImagePath().substring(2));
+            Bitmap b = Function.getBitmapFromURL(url+food.getImagePath().substring(2));
             imageItem.setImageBitmap(b);
 
             return convertView;
@@ -209,20 +211,5 @@ public class DiningItemFragment extends ListFragment {
             return true;
         }
 
-    }
-
-    public static Bitmap getBitmapFromURL(String src){
-        try{
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap bitmap = BitmapFactory.decodeStream(input);
-            return bitmap;
-        }catch (IOException e){
-            e.printStackTrace();
-            return null;
-        }
     }
 }

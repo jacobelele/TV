@@ -151,6 +151,7 @@ public class FullscreenActivity extends AppCompatActivity {
         ((SettingApplication)this.getApplication()).setServerPort(settings.getString("server_port", "8080"));
         ((SettingApplication)this.getApplication()).setMacAddress(settings.getString("mac_address", Function.getMacAddress()));
         url = "http://"+((SettingApplication)this.getApplication()).getServerIp()+":"+((SettingApplication)this.getApplication()).getServerPort()+"/iptvportal";
+//        url = "http://183.91.78.50:2380/iptvportal";
         api.Adapter.setBaseUrl(url+"/");
         api.Adapter.service().room(Function.getMacAddress()).enqueue(new Callback<Room>() {
             @Override

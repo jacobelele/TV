@@ -58,7 +58,9 @@ public class InHousePromoActivity extends AppCompatActivity {
 
         settings = getSharedPreferences("UserInfo", 0);
         String serverIp = settings.getString("server_ip", "101.101.101.9").toString();
+//        String serverIp = "183.91.78.50";
         String serverPort = settings.getString("server_port", "8080").toString();
+//        String serverPort = "2380";
         url = "http://"+serverIp+":"+serverPort+"/iptvportal";
         api.Adapter.service().listPromo(0).enqueue(new Callback<List<Promo>>() {
             @Override

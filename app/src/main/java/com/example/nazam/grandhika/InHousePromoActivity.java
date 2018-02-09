@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -40,7 +42,7 @@ public class InHousePromoActivity extends AppCompatActivity {
     private CustomPageAdapter mCustomPagerAdapter;
     private ViewPager mViewPager;
     private static int currentPage = 0;
-    private List<Bitmap> mBitmap = new ArrayList<Bitmap>();
+//    private List<Bitmap> mBitmap = new ArrayList<Bitmap>();
     private String url;
     private SharedPreferences settings;
 
@@ -61,25 +63,9 @@ public class InHousePromoActivity extends AppCompatActivity {
         api.Adapter.service().listPromo(0).enqueue(new Callback<List<Promo>>() {
             @Override
             public void onResponse(Call<List<Promo>> call, Response<List<Promo>> response) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
                 List<Promo> listPromo = response.body();
-//                listPromo
-                if(mBitmap.size()>0)
-                    mBitmap.clear();
-                for(int i=0;i<listPromo.size();i++){
-                    if(listPromo.get(i).getEveryday()==0){
-                        try {
-                            if(sdf.parse(listPromo.get(i).getStartDate()).compareTo(now())>= 0  && sdf.parse(listPromo.get(i).getEndDate()).compareTo(now())<= 0){
-                                mBitmap.add(Function.getBitmapFromURL(url + listPromo.get(i).getImageUrl().substring(2)));
-                            }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }else {
-                        mBitmap.add(Function.getBitmapFromURL(url + listPromo.get(i).getImageUrl().substring(2)));
-                    }
-                }
-                setPageAdapter(mBitmap.size());
+                Log.v("Nazam",listPromo.get(0).getEveryday().toString());
+                setPageAdapter(listPromo.size(),listPromo);
             }
 
             @Override
@@ -89,8 +75,8 @@ public class InHousePromoActivity extends AppCompatActivity {
         });
     }
 
-    private void setPageAdapter(Integer count){
-        mCustomPagerAdapter = new CustomPageAdapter(getApplicationContext());
+    private void setPageAdapter(Integer count, List<Promo> promoList){
+        mCustomPagerAdapter = new CustomPageAdapter(getApplicationContext(), promoList);
         mCustomPagerAdapter.setCount(count);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
@@ -116,8 +102,10 @@ public class InHousePromoActivity extends AppCompatActivity {
         Context mContext;
         LayoutInflater mLayoutInflater;
         Integer imageCount=0;
+        List<Promo> mPromoList;
 
-        public CustomPageAdapter(Context context){
+        public CustomPageAdapter(Context context, List<Promo> promoList){
+            mPromoList = promoList;
             mContext = context;
             mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -139,9 +127,20 @@ public class InHousePromoActivity extends AppCompatActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
-
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
             ImageView imageView = (ImageView) itemView.findViewById(R.id.imageSlideView);
-            imageView.setImageBitmap(mBitmap.get(position));
+
+            if(mPromoList.get(position).getEveryday()==0){
+                try {
+                    if(sdf.parse(mPromoList.get(position).getStartDate()).compareTo(now())>= 0  && sdf.parse(mPromoList.get(position).getEndDate()).compareTo(now())<= 0){
+                       Picasso.with(itemView.getContext()).load(url + mPromoList.get(position).getImageUrl().substring(2)).into(imageView);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                Picasso.with(itemView.getContext()).load(url + mPromoList.get(position).getImageUrl().substring(2)).into(imageView);
+            }
 
             container.addView(itemView);
             return itemView;
@@ -154,6 +153,13 @@ public class InHousePromoActivity extends AppCompatActivity {
     }
 
     private Date now(){
-        return new Date();
+        String dateNow = getIntent().getStringExtra("DATE_NOW");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy   HH:mm:ss");
+        try {
+            return sdf.parse(dateNow);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return new Date();
+        }
     }
 }

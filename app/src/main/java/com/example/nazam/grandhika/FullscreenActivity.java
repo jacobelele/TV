@@ -1,26 +1,25 @@
 package com.example.nazam.grandhika;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Rect;
 import android.os.StrictMode;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,25 +28,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
+import com.squareup.picasso.Picasso;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import api.Function;
 import model.AdvImage;
+import model.Pass;
 import model.Room;
 import model.SettingApplication;
 import retrofit2.Call;
@@ -60,47 +55,40 @@ import retrofit2.Response;
  * status bar and navigation/system bar) with user interaction.
  */
 public class FullscreenActivity extends AppCompatActivity {
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
-    private static final boolean AUTO_HIDE = true;
+
+//    private static final boolean AUTO_HIDE = true;
     private static int currentPage = 0;
-    ImageButton im;
+    private ImageButton[] im = new ImageButton[5];
     private static final String PASSWORD = "88888888";
 
-    /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-     * user interaction before hiding the system UI.
-     */
-    private static final int AUTO_HIDE_DELAY_MILLIS = 300;
+//    private static final int AUTO_HIDE_DELAY_MILLIS = 300;
 
     /**
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
      */
-    private static final int UI_ANIMATION_DELAY = 300;
-    private final Handler mHideHandler = new Handler();
-    private View mContentView;
-    private final Runnable mHidePart2Runnable = new Runnable() {
-        @SuppressLint("InlinedApi")
-        @Override
-        public void run() {
-            // Delayed removal of status and navigation bar
-
-            // Note that some of these constants are new as of API 16 (Jelly Bean)
-            // and API 19 (KitKat). It is safe to use them, as they are inlined
-            // at compile-time and do nothing on earlier devices.
-            mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
-    };
+//    private static final int UI_ANIMATION_DELAY = 300;
+//    private final Handler mHideHandler = new Handler();
+//    private View mContentView;
+//    private final Runnable mHidePart2Runnable = new Runnable() {
+//        @SuppressLint("InlinedApi")
+//        @Override
+//        public void run() {
+//            // Delayed removal of status and navigation bar
+//
+//            // Note that some of these constants are new as of API 16 (Jelly Bean)
+//            // and API 19 (KitKat). It is safe to use them, as they are inlined
+//            // at compile-time and do nothing on earlier devices.
+//            mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+//                    | View.SYSTEM_UI_FLAG_FULLSCREEN
+//                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+//                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+//        }
+//    };
 //    private View mControlsView;
-    private final Runnable mShowPart2Runnable = new Runnable() {
+    /*private final Runnable mShowPart2Runnable = new Runnable() {
         @Override
         public void run() {
             // Delayed display of UI elements
@@ -117,13 +105,13 @@ public class FullscreenActivity extends AppCompatActivity {
         public void run() {
             hide();
         }
-    };
+    };*/
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
      * while interacting with activity UI.
      */
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
+    /*private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (AUTO_HIDE) {
@@ -131,7 +119,7 @@ public class FullscreenActivity extends AppCompatActivity {
             }
             return false;
         }
-    };
+    };*/
     private CustomPageAdapter mCustomPagerAdapter;
     private ViewPager mViewPager;
     private String url;
@@ -140,6 +128,8 @@ public class FullscreenActivity extends AppCompatActivity {
     private TextView mRoomNumber;
     private TextView mDateTitle;
     private SharedPreferences settings;
+    private long timeMilis;
+    private List<Pass> listPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,11 +160,6 @@ public class FullscreenActivity extends AppCompatActivity {
                     mNameTitle.setText(room.getCheckPerson());
                     mRoomNumber.setText(mRoomNumber.getText().toString()
                             .subSequence(0,mRoomNumber.getText().length()-1)+room.getName());
-                    long timeMilis = room.getTimeMills();
-                    SimpleDateFormat sdf = new SimpleDateFormat("d MMM yyyy");
-                    mDateTitle.setText(sdf.format(new Date(timeMilis)));
-                    sdf.applyPattern("HH:mm");
-                    mTimeTitle.setText(sdf.format(new Date(timeMilis)));
                 }
             }
 
@@ -189,14 +174,12 @@ public class FullscreenActivity extends AppCompatActivity {
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
                 if(response.isSuccessful()){
                     List<String> listAdvImage = response.body();
-                    if(mBitmap.size()>0)
+                    /*if(mBitmap.size()>0)
                         mBitmap.clear();
                     for(int i=0;i<listAdvImage.size();i++){
                         mBitmap.add(Function.getBitmapFromURL(url+listAdvImage.get(i).substring(2)));
-                    }
-                    tes();
-//                    im.setFocusable(true);
-                    im.setSelected(true);
+                    }*/
+                    setPageAdapter(listAdvImage);
                 }
             }
 
@@ -206,23 +189,62 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-        im = findViewById(R.id.TvChannel);
-        im.setOnClickListener(new View.OnClickListener() {
+        api.Adapter.service().getCurrentTimeMillis().enqueue(new Callback<Long>() {
+            @Override
+            public void onResponse(Call<Long> call, Response<Long> response) {
+                timeMilis = response.body();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy   HH:mm:ss");
+                sdf.setTimeZone(TimeZone.getTimeZone("Asia/Jakarta"));
+                Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Jakarta")
+                        ,new Locale("id","ID"));
+                sdf.setCalendar(calendar);
+                calendar.setTimeInMillis(timeMilis);
+                mDateTitle.setText(sdf.format(calendar.getTime()));
+                Timer time = new Timer();
+                time.schedule(new TimerTask() {
+                   @Override
+                   public void run() {
+                       mDateTitle.post(new Runnable() {
+                           public void run() {
+                               SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy   HH:mm:ss");
+                               sdf.setTimeZone(TimeZone.getTimeZone("Asia/Jakarta"));
+                               Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Jakarta"),new Locale("id","ID"));
+                               timeMilis+=1000;
+                               calendar.setTimeInMillis(timeMilis);
+                               mDateTitle.setText(sdf.format(calendar.getTime()));
+                           }
+                       });
+                   }
+                },1000,1000);
+            }
+
+            @Override
+            public void onFailure(Call<Long> call, Throwable t) {
+
+            }
+        });
+
+
+        ImageButton imx = findViewById(R.id.TvChannel);
+        imx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent tvIntent = new Intent(FullscreenActivity.this, TvActivity.class);
                 startActivity(tvIntent);
             }
         });
+        im[0] = imx;
 
         ImageButton im1 = findViewById(R.id.InHousePromo);
         im1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent diningIntent = new Intent(FullscreenActivity.this, InHousePromoActivity.class);
+                diningIntent.putExtra("DATE_NOW",mDateTitle.getText());
                 startActivity(diningIntent);
             }
         });
+        im[1] = im1;
 
         ImageButton im2 = findViewById(R.id.Dining);
         im2.setOnClickListener(new View.OnClickListener() {
@@ -232,6 +254,7 @@ public class FullscreenActivity extends AppCompatActivity {
                 startActivity(sceneryIntent);
             }
         });
+        im[2]=im2;
 
         ImageButton im3 = findViewById(R.id.Scenery);
         im3.setOnClickListener(new View.OnClickListener() {
@@ -241,7 +264,21 @@ public class FullscreenActivity extends AppCompatActivity {
                 startActivity(settingIntent);
             }
         });
+        im[3]=im3;
 
+        api.Adapter.service().listPass().enqueue(new Callback<List<Pass>>() {
+            @Override
+            public void onResponse(Call<List<Pass>> call, Response<List<Pass>> response) {
+                if(response.isSuccessful()){
+                    listPass = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Pass>> call, Throwable t) {
+
+            }
+        });
         ImageButton im4 = findViewById(R.id.Setting);
         im4.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -253,6 +290,7 @@ public class FullscreenActivity extends AppCompatActivity {
                 alertDialogBuilder.setView(promptsView);
                 final EditText userInput = (EditText) promptsView
                         .findViewById(R.id.editTextPassword);
+                userInput.setTransformationMethod(new AsteriskPasswordTransformationMethod());
                 alertDialogBuilder
                         .setCancelable(false)
                         .setOnKeyListener(new DialogInterface.OnKeyListener() {
@@ -262,16 +300,20 @@ public class FullscreenActivity extends AppCompatActivity {
                                         keyEvent.getKeyCode()==KeyEvent.KEYCODE_ENTER||
                                         keyEvent.getKeyCode()==KeyEvent.KEYCODE_BUTTON_SELECT||
                                         keyEvent.getKeyCode()==KeyEvent.KEYCODE_NUMPAD_ENTER){
-                                    if(userInput.getText().toString().equalsIgnoreCase(PASSWORD)) {
-                                        Intent settingIntent = new Intent(FullscreenActivity.this, SettingActivity.class);
-                                        startActivity(settingIntent);
-                                        dialogInterface.dismiss();
-                                        return true;
-                                    }else {
-                                        Toast.makeText(FullscreenActivity.this,"Wrong Password",Toast.LENGTH_SHORT);
-                                        dialogInterface.dismiss();
+                                    if(!listPass.isEmpty()) {
+                                        if (Function.md5(userInput.getText().toString()).toUpperCase()
+                                                .equalsIgnoreCase(listPass.get(0).getHashPassword())) {
+                                            Intent settingIntent = new Intent(FullscreenActivity.this, SettingActivity.class);
+                                            startActivity(settingIntent);
+                                            dialogInterface.dismiss();
+                                            return true;
+                                        } else {
+                                            Toast.makeText(FullscreenActivity.this, "Wrong Password", Toast.LENGTH_SHORT);
+                                            dialogInterface.dismiss();
+                                            return false;
+                                        }
+                                    }else
                                         return false;
-                                    }
                                 }else
                                     return false;
                             }
@@ -280,10 +322,11 @@ public class FullscreenActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+        im[4]=im4;
     }
 
-    private void tes(){
-        mCustomPagerAdapter = new CustomPageAdapter(getApplicationContext());
+    private void setPageAdapter(List<String> listURLImage){
+        mCustomPagerAdapter = new CustomPageAdapter(getApplicationContext(),listURLImage);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
         final Handler handler = new Handler();
@@ -293,7 +336,11 @@ public class FullscreenActivity extends AppCompatActivity {
                     currentPage = 0;
                 }
                 mViewPager.setCurrentItem(currentPage++, true);
-                im.setSelected(true);
+                mViewPager.setFocusable(false);
+                mViewPager.setFocusableInTouchMode(false);
+//                im.setFocusable(true);
+//                im.setFocusableInTouchMode(true);///add this line
+//                im.requestFocus();
             }
         };
         Timer swipeTimer = new Timer();
@@ -308,9 +355,11 @@ public class FullscreenActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        delayedHide(100);
+        im[0].setFocusable(true);
+        im[0].setFocusableInTouchMode(true);///add this line
+        im[0].requestFocus();
     }
-
+/*
     private void toggle() {
         if (mVisible) {
             hide();
@@ -342,17 +391,24 @@ public class FullscreenActivity extends AppCompatActivity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
-    }
+    }*/
 
-    private List<Bitmap> mBitmap = new ArrayList<Bitmap>();
+//    private List<Bitmap> mBitmap = new ArrayList<Bitmap>();
 
     class CustomPageAdapter extends PagerAdapter{
         Context mContext;
         LayoutInflater mLayoutInflater;
+        List<String> mListURLImage;
 
-        public CustomPageAdapter(Context context){
+        public CustomPageAdapter(Context context,List<String> listUrlImage){
             mContext = context;
+            mListURLImage = listUrlImage;
             mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public void notifyDataSetChanged() {
+            super.notifyDataSetChanged();
         }
 
         @Override
@@ -370,7 +426,7 @@ public class FullscreenActivity extends AppCompatActivity {
             View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
 
             ImageView imageView = (ImageView) itemView.findViewById(R.id.imageSlideView);
-            imageView.setImageBitmap(mBitmap.get(position));
+            Picasso.with(itemView.getContext()).load(url + mListURLImage.get(position).substring(2)).into(imageView);
 
             container.addView(itemView);
             return itemView;
@@ -381,4 +437,27 @@ public class FullscreenActivity extends AppCompatActivity {
             container.removeView((LinearLayout)object);
         }
     }
+
+    public class AsteriskPasswordTransformationMethod extends PasswordTransformationMethod {
+        @Override
+        public CharSequence getTransformation(CharSequence source, View view) {
+            return new PasswordCharSequence(source);
+        }
+
+        private class PasswordCharSequence implements CharSequence {
+            private CharSequence mSource;
+            public PasswordCharSequence(CharSequence source) {
+                mSource = source; // Store char sequence
+            }
+            public char charAt(int index) {
+                return '*'; // This is the important part
+            }
+            public int length() {
+                return mSource.length(); // Return default
+            }
+            public CharSequence subSequence(int start, int end) {
+                return mSource.subSequence(start, end); // Return default
+            }
+        }
+    };
 }

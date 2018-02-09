@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <item android:state_pressed="true" android:drawable="@color/whiteShading" />
-    <item android:state_focused="true" android:drawable="@color/blackShading" />
-    <item android:state_selected="true" android:drawable="@color/blackShading" />
-    <item android:drawable="@color/ic_appetizer_background" />
+    <item android:state_focused="true" android:drawable="@color/redShading" />
+    <item android:drawable="@color/alp" />
 </selector>

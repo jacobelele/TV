@@ -6,5 +6,6 @@
     <color name="whiteShading">#f0ffffff</color>
     <color name="blackShading">#80000000</color>
     <color name="black_overlay">#66000000</color>
-    <color name="redShading">#80a7101b</color>
+    <color name="redShading">#a7101b</color>
+    <color name="alp">#00000000</color>
 </resources>

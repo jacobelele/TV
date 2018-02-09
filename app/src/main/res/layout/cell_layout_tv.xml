@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <Button
+        android:id="@+id/btnTvCh"
+        android:layout_width="190dp"
+        android:layout_height="140dp"
+        android:layout_gravity="center_vertical|center_horizontal|center"
+        android:background="@drawable/button_focus_tv"
+        android:padding="10dp" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
@@ -31,7 +38,7 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,15 +53,6 @@
             android:textSize="13sp"
             android:textStyle="bold" />
 
-        <!--<TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAllCaps="true"
-            android:textColor="#fff"
-            android:textSize="13sp"
-            android:textStyle="bold" />-->
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

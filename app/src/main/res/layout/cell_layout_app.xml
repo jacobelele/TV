@@ -6,20 +6,19 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <Button
-        android:id="@+id/btnDinItem"
+        android:id="@+id/btnAppList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/button_focus_dining" />
+        android:background="@drawable/button_focus_tv" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/button_focus"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingBottom="10dp"
@@ -28,28 +27,26 @@
         android:paddingTop="10dp">
 
         <ImageView
-            android:id="@+id/img"
-            android:layout_width="match_parent"
+            android:id="@+id/imgApp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
-            android:foreground="@drawable/button_focus_foreground"
-            android:forceHasOverlappingRendering="true"
+            android:background="@android:color/white"
+            android:foreground="@drawable/channel_focus_foreground"
             android:gravity="center"
-            android:textAllCaps="true"
-            android:textColor="#fff"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+            android:padding="8dp" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/titleApp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAllCaps="true"
             android:textColor="#fff"
-            android:textSize="13sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
+
     </LinearLayout>
 
 </FrameLayout>

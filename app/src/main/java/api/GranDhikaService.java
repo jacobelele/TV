@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.Food;
 import model.FoodType;
+import model.Pass;
 import model.Promo;
 import model.Room;
 import model.RunningText;
@@ -42,4 +43,10 @@ public interface GranDhikaService {
 
     @GET("GetScenery")
     Call<List<Scenery>> listScenery(@Query("id") Integer id);
+
+    @GET("GetApkPassword")
+    Call<List<Pass>> listPass();
+
+    @GET("GetCurrentTimeMillis")
+    Call<Long> getCurrentTimeMillis();
 }

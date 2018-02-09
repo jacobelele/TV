@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -105,10 +106,13 @@ public class DiningItemFragment extends ListFragment {
         TextView menuTitle =(TextView)v.findViewById(R.id.itemTestTitle);
         menuTitle.setText(mParam2);
         ListView listMenuItem = (ListView)v.findViewById(android.R.id.list);
+
         namaItem = (TextView)v.findViewById(R.id.namaItem);
         hargaItem = (TextView)v.findViewById(R.id.hargaItem);
         ketItem = (TextView)v.findViewById(R.id.ketItem);
         imageItem = (ImageView)v.findViewById(R.id.imageItemDetail);
+
+
 
         settings = getActivity().getSharedPreferences("UserInfo", 0);
         String serverIp = settings.getString("server_ip", "").toString();
@@ -136,6 +140,19 @@ public class DiningItemFragment extends ListFragment {
         });
 
         return v;
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+//        final Food food = getItem(position);
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("id","ID"));
+        hargaItem.setText(nf.format((double)listFood.get(position).getPrice()));
+        namaItem.setText(listFood.get(position).getName());
+        Log.v("fariz food name",listFood.get(position).getName());
+        ketItem.setText(listFood.get(position).getContent());
+        Bitmap b = Function.getBitmapFromURL(url+listFood.get(position).getImagePath().substring(2));
+        imageItem.setImageBitmap(b);
+//        super.onListItemClick(l, v, position, id);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -184,18 +201,18 @@ public class DiningItemFragment extends ListFragment {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            Food food = getItem(position);
+            final Food food = getItem(position);
             if(convertView==null)
                 convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
             TextView textView = (TextView) convertView.findViewById(android.R.id.text1);
             textView.setText(food.getName());
             textView.setTextColor(getResources().getColor(android.R.color.white));
-            NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("id","ID"));
+            /*NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("id","ID"));
             hargaItem.setText(nf.format((double)food.getPrice()));
             namaItem.setText(food.getName());
             ketItem.setText(food.getContent());
             Bitmap b = Function.getBitmapFromURL(url+food.getImagePath().substring(2));
-            imageItem.setImageBitmap(b);
+            imageItem.setImageBitmap(b);*/
 
             return convertView;
         }

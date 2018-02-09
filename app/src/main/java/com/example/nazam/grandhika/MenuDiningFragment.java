@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import api.Function;
 import model.FoodType;
 import model.SettingApplication;
 import model.TvChannel;
@@ -153,7 +154,6 @@ public class MenuDiningFragment extends Fragment implements DiningItemFragment.O
             public void onResponse(Call<List<FoodType>> call, Response<List<FoodType>> response) {
                 if(response.isSuccessful()){
                     foodTypeList = response.body();
-                    Log.v("fariz food type", foodTypeList.get(0).getImagePath());
                     RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),4);
                     recyclerView.setLayoutManager(layoutManager);
                     MyAdapter adapter = new MyAdapter(getContext(), foodTypeList);
@@ -223,10 +223,8 @@ public class MenuDiningFragment extends Fragment implements DiningItemFragment.O
             viewHolder.title.setText(galleryList.get(i).getName());
 
             if(!galleryList.get(i).getImagePath().equalsIgnoreCase("")) {
-//                viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                viewHolder.img.setText(galleryList.get(i).getName());
                 Picasso.with(context).load(url + galleryList.get(i).getImagePath().substring(2)).resize(200, 160).into(viewHolder.img);
-                viewHolder.img.setOnClickListener(new View.OnClickListener() {
+                viewHolder.btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         DiningItemFragment categoryFragment = DiningItemFragment.newInstance(galleryList.get(index).getId(),galleryList.get(index).getName());
@@ -238,10 +236,8 @@ public class MenuDiningFragment extends Fragment implements DiningItemFragment.O
                     }
                 });
             }else{
-//                viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                viewHolder.img.setText(galleryList.get(i).getName());
                 Picasso.with(context).load(Uri.parse("android.resource://com.example.nazam.grandhika/" + R.drawable.no_image)).resize(200, 160).into(viewHolder.img);
-                viewHolder.img.setOnClickListener(new View.OnClickListener() {
+                viewHolder.btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         DiningItemFragment categoryFragment = DiningItemFragment.newInstance(galleryList.get(index).getId(),galleryList.get(index).getName());
@@ -262,12 +258,13 @@ public class MenuDiningFragment extends Fragment implements DiningItemFragment.O
 
         public class ViewHolder extends RecyclerView.ViewHolder{
             private TextView title;
-            private ImageButton img;
+            private ImageView img;
+            private Button btn;
             public ViewHolder(View view) {
                 super(view);
-
+                btn = (Button)view.findViewById(R.id.btnDinItem);
                 title = (TextView)view.findViewById(R.id.title);
-                img = (ImageButton) view.findViewById(R.id.img);
+                img = (ImageView) view.findViewById(R.id.img);
             }
         }
     }

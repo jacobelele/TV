@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -52,13 +54,13 @@ public class SceneryActivity extends AppCompatActivity {
             public void onResponse(Call<List<Scenery>> call, Response<List<Scenery>> response) {
                 if(response.isSuccessful()){
                     List<Scenery> sceneryList = response.body();
-                    if(mBitmap.size()>0)
+                    /*if(mBitmap.size()>0)
                         mBitmap.clear();
                     for(int i=0;i<sceneryList.size();i++){
                         mBitmap.add(Function.getBitmapFromURL(url + sceneryList.get(i)
                                 .getImagePath().substring(2)));
-                    }
-                    setPageAdapter(mBitmap.size(),sceneryList);
+                    }*/
+                    setPageAdapter(sceneryList.size(),sceneryList);
                 }
             }
 
@@ -89,7 +91,7 @@ public class SceneryActivity extends AppCompatActivity {
         mCustomPagerAdapter.setCount(count);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
-        final Handler handler = new Handler();
+        /*final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
             public void run() {
                 if (currentPage >= mCustomPagerAdapter.getCount()) {
@@ -104,7 +106,7 @@ public class SceneryActivity extends AppCompatActivity {
             public void run() {
                 handler.post(Update);
             }
-        }, 2500, 2500);
+        }, 2500, 2500);*/
     }
 
     class CustomPageAdapter extends PagerAdapter {
@@ -137,20 +139,13 @@ public class SceneryActivity extends AppCompatActivity {
         public Object instantiateItem(ViewGroup container,final int position) {
             View itemView = mLayoutInflater.inflate(R.layout.pager_item_text, container, false);
 
-            TextView textView = (TextView) itemView.findViewById(R.id.textDesc);
-            textView.setVisibility(View.INVISIBLE);
             ImageView imageView = (ImageView) itemView.findViewById(R.id.imageSlideViewText);
             imageView.setBackgroundColor(0x80FFFFFF);
-            imageView.setImageBitmap(mBitmap.get(position));
+            Picasso.with(itemView.getContext()).load(url + mSceneryList.get(position).getImagePath().substring(2)).into(imageView);
+//            imageView.setImageBitmap(/*mBitmap.get(position)*/);
+            TextView textView = (TextView) itemView.findViewById(R.id.textDesc);
+            textView.setText(mSceneryList.get(position).getDescription());
 
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    TextView textView = (TextView) findViewById(R.id.textDesc);
-                    textView.setText(mSceneryList.get(position).getDescription());
-                    textView.setVisibility(View.VISIBLE);
-                }
-            });
 
             container.addView(itemView);
             return itemView;

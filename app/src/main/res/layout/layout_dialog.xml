@@ -10,11 +10,11 @@
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/whiteShading"
+        android:ems="1"
+        android:gravity="center"
         android:inputType="numberPassword"
         android:maxLength="8"
-        android:textSize="80sp"
-        android:gravity="center"
         android:textAlignment="center"
-        android:background="@color/whiteShading"
-        />
+        android:textSize="80sp" />
 </LinearLayout>

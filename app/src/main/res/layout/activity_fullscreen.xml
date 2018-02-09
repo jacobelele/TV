@@ -29,8 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="#90a7101b"
-            android:paddingEnd="40dp"
-            android:paddingStart="40dp">
+            android:paddingEnd="15dp"
+            android:paddingStart="30dp">
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -104,8 +104,8 @@
                 android:layout_height="wrap_content"
                 android:layout_column="5"
                 android:layout_row="1"
+                android:paddingLeft="10dp"
                 android:paddingRight="20dp"
-                android:text="@string/time_main"
                 android:textColor="@android:color/background_light" />
         </GridLayout>
 

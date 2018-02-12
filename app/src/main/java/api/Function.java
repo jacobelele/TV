@@ -38,8 +38,8 @@ import static android.content.ContentValues.TAG;
 public class Function {
     public static String getMacAddress(){
         try {
-//            return loadFileAsString("/sys/class/net/eth0/address").toUpperCase().substring(0, 17);
-            return "D0:76:58:00:23:70";
+            return loadFileAsString("/sys/class/net/eth0/address").toUpperCase().substring(0, 17);
+//            return "D0:76:58:00:23:70";
         } catch (Exception e) {
             e.printStackTrace();
             return null;

@@ -97,7 +97,7 @@ public class InHousePromoActivity extends AppCompatActivity {
             public void run() {
                 handler.post(Update);
             }
-        }, 2500, 2500);
+        }, 2500, 5000);
     }
 
     class CustomPageAdapter extends PagerAdapter {
